@@ -1,7 +1,7 @@
-import jwtDecode from "jwt-decode";
+import jwtDecode from 'jwt-decode';
 
 export const CheckToken = () => {
-  const token = localStorage.getItem("token");
+  const token = localStorage.getItem('token');
   if (token) {
     const { exp } = jwtDecode(token);
     const expirationTime = exp * 1000 - 60000;

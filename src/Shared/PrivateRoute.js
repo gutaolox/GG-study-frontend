@@ -1,10 +1,10 @@
 // @flow
-import * as React from "react";
-import { Route, Redirect } from "react-router-dom";
-import { CheckToken } from "../Utils/checkToken";
+import * as React from 'react';
+import { Route, Redirect } from 'react-router-dom';
+import { CheckToken } from '../Utils/checkToken';
 
 export const PrivateRoute = ({ children, ...routeProp }) => {
-  let auth = CheckToken();
+  const auth = CheckToken();
   return (
     <Route
       {...routeProp}
@@ -14,7 +14,7 @@ export const PrivateRoute = ({ children, ...routeProp }) => {
         ) : (
           <Redirect
             to={{
-              pathname: "/login",
+              pathname: '/login',
               state: { from: location },
             }}
           />
