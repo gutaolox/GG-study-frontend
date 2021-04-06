@@ -1,23 +1,22 @@
-// @flow
-import * as React from "react";
-import { Formik } from "formik";
-import { Button, TextField } from "@material-ui/core";
-import "./Login.scss";
-import { FormattedMessage } from "react-intl";
-import * as loginService from "../Services/LoginService";
+import React from 'react';
+import { Formik } from 'formik';
+import { Button, TextField } from '@material-ui/core';
+import './Login.scss';
+import { FormattedMessage } from 'react-intl';
+import * as loginService from '../Services/LoginService';
 
 export const Login = ({ location, history }) => {
   return (
     <Formik
-      initialValues={{ username: "", password: "" }}
+      initialValues={{ username: '', password: '' }}
       validate={(values) => {
         const errors = {};
         if (!values.username) {
-          errors.username = "Required";
+          errors.username = 'Required';
         } else if (
           !/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i.test(values.username)
         ) {
-          errors.username = "Invalid email address";
+          errors.username = 'Invalid email address';
         }
         return errors;
       }}
@@ -26,6 +25,7 @@ export const Login = ({ location, history }) => {
         await loginService
           .login(values.username, values.password, location, history)
           .catch((error) => {
+            console.log(error);
             setSubmitting(false);
           });
       }}

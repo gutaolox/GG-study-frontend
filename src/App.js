@@ -1,11 +1,12 @@
-import "./App.scss";
-import { IntlProvider } from "react-intl";
-import * as messages from "./intl/port.json";
-import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
-import { Login } from "./Login/Login";
-import { CookiesProvider } from "react-cookie";
-import { PrivateRoute } from "./Shared/PrivateRoute";
-import { Profile } from "./Login/Profile";
+import React from 'react';
+import './App.scss';
+import { IntlProvider } from 'react-intl';
+import * as messages from './intl/port.json';
+import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
+import { Login } from './Login/Login';
+import { CookiesProvider } from 'react-cookie';
+import { PrivateRoute } from './Shared/PrivateRoute';
+import { Profile } from './Login/Profile';
 
 function App() {
   return (
