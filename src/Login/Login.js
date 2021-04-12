@@ -33,46 +33,44 @@ export const Login = ({ location, history }) => {
       {({
         values,
         errors,
-        touched,
         handleChange,
         handleBlur,
         handleSubmit,
-        isSubmitting,
         /* and other goodies */
       }) => {
         return (
-          <form className="Login-form" onSubmit={handleSubmit}>
-            <div className="Login-height-organization">
-              <div className="Login-username">
+          <form className='Login-form' onSubmit={handleSubmit}>
+            <div className='Login-height-organization'>
+              <div className='Login-username'>
                 <TextField
-                  id="username"
-                  name="username"
-                  variant="outlined"
+                  id='username'
+                  name='username'
+                  variant='outlined'
                   onChange={handleChange}
                   value={values.username}
-                  label={<FormattedMessage id="username" />}
+                  label={<FormattedMessage id='username' />}
                   onBlur={handleBlur}
                   error={!!errors.username}
                   helperText={errors.username}
-                ></TextField>
+                />
               </div>
-              <div className="Login-password">
+              <div className='Login-password'>
                 <TextField
-                  id="password"
-                  name="password"
-                  variant="outlined"
-                  type="password"
+                  id='password'
+                  name='password'
+                  variant='outlined'
+                  type='password'
                   value={values.password}
-                  label={<FormattedMessage id="password" />}
+                  label={<FormattedMessage id='password' />}
                   onChange={handleChange}
                   onBlur={handleBlur}
                   error={!!errors.password}
                   helperText={errors.password}
-                ></TextField>
+                />
               </div>
-              <div className="Login-confirm">
-                <Button variant="outlined" color="primary" type="submit">
-                  <FormattedMessage id="login" />
+              <div className='Login-confirm'>
+                <Button variant='outlined' color='primary' type='submit'>
+                  <FormattedMessage id='login' />
                 </Button>
               </div>
             </div>

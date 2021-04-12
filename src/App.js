@@ -12,15 +12,15 @@ function App() {
   return (
     <IntlProvider
       messages={messages.default}
-      locale="pt-br"
-      defaultLocale="pt-br"
+      locale='pt-br'
+      defaultLocale='pt-br'
     >
       <CookiesProvider>
-        <div className="App-header">
+        <div className='App-header'>
           <Router>
             <Switch>
-              <Route path="/login" component={Login} />
-              <PrivateRoute path="/profile">
+              <Route path='/login' component={Login} />
+              <PrivateRoute path='/profile'>
                 <Profile />
               </PrivateRoute>
             </Switch>
