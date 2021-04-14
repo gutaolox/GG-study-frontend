@@ -9,6 +9,10 @@ export const Chat = ({ socketConection }) => {
   const messageReference = () => messages;
   const getMessages = () => {
     if (socketConection) {
+      chatService.messageListen(socketConection, (data) => {
+        console.log(messageReference());
+        setMessages([...messageReference(), data]);
+      });
       chatService.getMessages(socketConection, setMessages);
     }
   };
