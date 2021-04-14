@@ -22,6 +22,15 @@ export const Profile = () => {
   useEffect(() => {
     const socket = socketIOClient(
       `${BACK_END_API_LINK.LINK}:${BACK_END_API_LINK.PORT}`,
+      {
+        transportOptions: {
+          polling: {
+            extraHeaders: {
+              Authorization: localStorage.getItem('token'),
+            },
+          },
+        },
+      },
     );
     setS(socket);
     socket.on('connect', () => {
