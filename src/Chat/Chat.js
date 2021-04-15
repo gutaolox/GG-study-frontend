@@ -23,7 +23,7 @@ export const Chat = ({ socketConection }) => {
         {messages.map((message, index) => {
           return (
             <div key={index}>
-              {message.from}:{message.message}
+              {message.from}:{message.text}
             </div>
           );
         })}
@@ -38,19 +38,21 @@ export const Chat = ({ socketConection }) => {
         <Button
           color='primary'
           variant='secondary'
-          onClick={() =>
+          onClick={() => {
             chatService.listenMessage(
               socketConection,
               {
                 from: 'zezin',
-                message: newText,
+                text: newText,
+                date: new Date(),
               },
               (data) => {
                 console.log(messageReference());
                 setMessages([...messageReference(), data]);
               },
-            )
-          }
+            );
+            setNewText('');
+          }}
         >
           Enviar
         </Button>
