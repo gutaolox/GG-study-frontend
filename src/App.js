@@ -9,6 +9,7 @@ import { PrivateRoute } from './Shared/PrivateRoute';
 import { Profile } from './Login/Profile';
 import { Professor } from './Professor/Professor';
 import { customSocket } from './Utils/customSocket';
+import { ClassMenu } from './ClassMenu/ClassMenu';
 
 const App = () => {
   const [socket, setSocket] = useState();
@@ -17,7 +18,7 @@ const App = () => {
     setSocket(connection);
     // return connection.disconnect();
   }, []);
-
+  console.log(socket);
   return (
     <IntlProvider
       messages={messages.default}
@@ -34,6 +35,9 @@ const App = () => {
               </PrivateRoute>
               <PrivateRoute path='/professor'>
                 <Professor socketConection={socket} />
+              </PrivateRoute>
+              <PrivateRoute path='/classes'>
+                <ClassMenu socketConnection={socket} />
               </PrivateRoute>
             </Switch>
           </Router>
