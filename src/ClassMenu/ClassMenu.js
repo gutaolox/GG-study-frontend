@@ -1,9 +1,9 @@
 import React, { useEffect, useState } from 'react';
 import * as loginService from '../Services/LoginService';
 import { IfDiv } from '../Shared/IfDiv';
-import { Student } from '../Students/Student';
 import * as classService from '../Services/ClassService';
 import { MenuItem, Select } from '@material-ui/core';
+import { Professor } from '../Professor/Professor';
 
 export const ClassMenu = ({ socketConnection }) => {
   const [student, setStudent] = useState();
@@ -32,9 +32,9 @@ export const ClassMenu = ({ socketConnection }) => {
   return (
     <div>
       <IfDiv condition={selectedClass}>
-        <Student
+        <Professor
           user={student}
-          socketConection={socketConnection}
+          socketConnection={socketConnection}
           classId={selectedClass}
         />
       </IfDiv>

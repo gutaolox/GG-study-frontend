@@ -18,7 +18,6 @@ const App = () => {
     setSocket(connection);
     // return connection.disconnect();
   }, []);
-  console.log(socket);
   return (
     <IntlProvider
       messages={messages.default}
@@ -34,7 +33,7 @@ const App = () => {
                 <Profile />
               </PrivateRoute>
               <PrivateRoute path='/professor'>
-                <Professor socketConection={socket} />
+                <Professor socketConnection={socket} />
               </PrivateRoute>
               <PrivateRoute path='/classes'>
                 <ClassMenu socketConnection={socket} />
