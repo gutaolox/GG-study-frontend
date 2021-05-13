@@ -10,6 +10,7 @@ import { Profile } from './Login/Profile';
 import { Professor } from './Professor/Professor';
 import { customSocket } from './Utils/customSocket';
 import { ClassMenu } from './ClassMenu/ClassMenu';
+import { Classroom } from './Classroom/Classroom';
 
 const App = () => {
   const [socket, setSocket] = useState();
@@ -37,6 +38,9 @@ const App = () => {
               </PrivateRoute>
               <PrivateRoute path='/classes'>
                 <ClassMenu socketConnection={socket} />
+              </PrivateRoute>
+              <PrivateRoute path='/classroom'>
+                <Classroom socketConnection={socket} />
               </PrivateRoute>
             </Switch>
           </Router>
