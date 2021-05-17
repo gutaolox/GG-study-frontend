@@ -2,10 +2,10 @@
 import * as React from 'react';
 import './Login.scss';
 import { useEffect, useState } from 'react';
-import * as loginService from '../Services/LoginService';
+import * as loginService from '../../Services/LoginService';
 import { Button } from '@material-ui/core';
 import socketIOClient from 'socket.io-client';
-import { BACK_END_API_LINK } from '../Configs/backend';
+import { BACK_END_API_LINK } from '../../Configs/backend';
 
 export const Profile = () => {
   const [user, setUser] = useState({});

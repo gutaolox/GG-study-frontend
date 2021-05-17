@@ -1,6 +1,6 @@
 import React from 'react';
-import { CaptureCamera } from '../Shared/CaptureCamera';
-import { USER_ROLES } from '../Utils/constants';
+import { CaptureCamera } from '../../Shared/CaptureCamera';
+import { USER_ROLES } from '../../Utils/constants';
 import './Student.scss';
 
 export const Student = ({ socketConection, classId, user }) => {

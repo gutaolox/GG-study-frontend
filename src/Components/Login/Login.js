@@ -3,7 +3,7 @@ import { Formik } from 'formik';
 import { Button, TextField } from '@material-ui/core';
 import './Login.scss';
 import { FormattedMessage } from 'react-intl';
-import * as loginService from '../Services/LoginService';
+import * as loginService from '../../Services/LoginService';
 
 export const Login = ({ location, history }) => {
   return (

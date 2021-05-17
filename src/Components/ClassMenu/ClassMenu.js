@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
-import * as loginService from '../Services/LoginService';
-import { IfDiv } from '../Shared/IfDiv';
-import * as classService from '../Services/ClassService';
+import * as loginService from '../../Services/LoginService';
+import { IfDiv } from '../../Shared/IfDiv';
+import * as classService from '../../Services/ClassService';
 import { Button, MenuItem, Select } from '@material-ui/core';
 import { connect } from 'twilio-video';
 import { Student } from '../Students/Student';

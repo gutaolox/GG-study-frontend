@@ -1,12 +1,13 @@
 import React, { useEffect, useState } from 'react';
-import * as loginService from '../Services/LoginService';
-import { IfDiv } from '../Shared/IfDiv';
+import * as loginService from '../../Services/LoginService';
+import { IfDiv } from '../../Shared/IfDiv';
 import { IconButton, Tooltip } from '@material-ui/core';
 import { ArrowBack } from '@material-ui/icons';
-import { getRandomPastelColor } from '../Utils/managingColors';
+import { getRandomPastelColor } from '../../Utils/managingColors';
 
-import logo from '../Images/logo.png';
+import logo from '../../Images/logo.png';
 import './Classroom.scss';
+
 export const Classroom = ({ socketConnection }) => {
   const [isStudent, setIsStudent] = useState(false);
   const getUser = () => {

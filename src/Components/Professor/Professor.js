@@ -1,12 +1,12 @@
 import { Button } from '@material-ui/core';
 import React, { useEffect, useState } from 'react';
 import { FormattedMessage } from 'react-intl';
-import { CaptureCamera } from '../Shared/CaptureCamera';
-import { IfDiv } from '../Shared/IfDiv';
-import { USER_ROLES } from '../Utils/constants';
+import { CaptureCamera } from '../../Shared/CaptureCamera';
+import { IfDiv } from '../../Shared/IfDiv';
+import { USER_ROLES } from '../../Utils/constants';
 import './Professor.scss';
-import * as loginService from '../Services/LoginService';
-import * as professorService from '../Services/ProfessorService';
+import * as loginService from '../../Services/LoginService';
+import * as professorService from '../../Services/ProfessorService';
 import { connect } from 'twilio-video';
 
 export const Professor = ({ socketConnection }) => {

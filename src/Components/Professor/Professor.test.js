@@ -2,7 +2,7 @@
 import React from 'react';
 import { render, screen } from '@testing-library/react';
 import { Professor } from './Professor';
-import * as messages from '../intl/port.json';
+import * as messages from '../../intl/port.json';
 import { IntlProvider } from 'react-intl';
 
 test('renders learn react link', () => {

@@ -4,14 +4,14 @@ import { IntlProvider } from 'react-intl';
 import * as messages from './intl/port.json';
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
 import { MuiThemeProvider, createMuiTheme } from '@material-ui/core/styles';
-import { Login } from './Login/Login';
+import { Login } from './Components/Login/Login';
 import { CookiesProvider } from 'react-cookie';
 import { PrivateRoute } from './Shared/PrivateRoute';
-import { Profile } from './Login/Profile';
-import { Professor } from './Professor/Professor';
+import { Profile } from './Components/Login/Profile';
+import { Professor } from './Components/Professor/Professor';
 import { customSocket } from './Utils/customSocket';
-import { ClassMenu } from './ClassMenu/ClassMenu';
-import { Classroom } from './Classroom/Classroom';
+import { ClassMenu } from './Components/ClassMenu/ClassMenu';
+import { Classroom } from './Components/Classroom/Classroom';
 
 const theme = createMuiTheme({
   palette: {
