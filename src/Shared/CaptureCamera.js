@@ -1,34 +1,31 @@
-import React from 'react';
-import VideoRecorder from 'react-video-recorder';
+import React, { useEffect, useRef } from 'react';
+import { USER_ROLES } from '../Utils/constants';
+import './style.scss';
 
-export const CaptureCamera = () => {
+export const CaptureCamera = ({ socket, userClass, started, classId }) => {
+  const userVideo = useRef();
+  // Criar aluno pra receber o peer e montar backend
+  useEffect(() => {
+    navigator.mediaDevices
+      .getUserMedia({ video: true, audio: true })
+      .then((myStream) => {
+        if (userVideo.current) {
+          if (userClass === USER_ROLES.PROFESSOR) {
+            userVideo.current.srcObject = myStream;
+          }
+        }
+      });
+  }, []);
+
   return (
-    <VideoRecorder
-      chunkSize={250}
-      constraints={{
-        audio: true,
-        video: true,
-      }}
-      style={{ height: 500, width: 500 }}
-      //   countdownTime={3000}
-      //   dataAvailableTimeout={500}
-      //   isFlipped
-      //   mimeType={undefined}
-      //   onError={function noRefCheck() {}}
-      //   onOpenVideoInput={function noRefCheck() {}}
-      //   onRecordingComplete={function noRefCheck() {}}
-      //   onStartRecording={function noRefCheck() {}}
-      //   onStopRecording={function noRefCheck() {}}
-      //   onStopReplaying={function noRefCheck() {}}
-      //   onTurnOffCamera={function noRefCheck() {}}
-      //   onTurnOnCamera={function noRefCheck() {}}
-      //   renderActions={function noRefCheck() {}}
-      //   renderDisconnectedView={function noRefCheck() {}}
-      //   renderErrorView={function noRefCheck() {}}
-      //   renderLoadingView={function noRefCheck() {}}
-      //   renderUnsupportedView={function noRefCheck() {}}
-      //   renderVideoInputView={function noRefCheck() {}}
-      //   timeLimit={undefined}
-    />
+    <div>
+      {/* <audio></audio> */}
+      <video
+        playsInline
+        muted={userClass === USER_ROLES.PROFESSOR}
+        ref={userVideo}
+        autoPlay
+      />
+    </div>
   );
 };

@@ -4,3 +4,13 @@ export const getAllClass = (socket, classSetter) => {
     classSetter(data);
   });
 };
+
+export const addStudent = (socket, idClass, idStudent, tokenSetter) => {
+  socket.emit('addStudent', {
+    idClass,
+    idStudent,
+  });
+  socket.once('connectToken', (data) => {
+    tokenSetter(data.videoToken);
+  });
+};
