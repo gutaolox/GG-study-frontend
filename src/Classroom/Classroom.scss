@@ -1,0 +1,110 @@
+@import '../App.scss';
+
+.container {
+  font-family: Source Serif Pro;
+  font-style: normal;
+  font-size: 20px;
+  letter-spacing: 0.03em;
+  background-color: $darkest-grey-color;
+  height: 100vh;
+  width: 100vw;
+  display: flex;
+}
+
+[class^='coluna'] {
+  display: flex;
+  flex-direction: column;
+}
+
+.coluna-1 {
+  width: 25vw;
+  height: 100vh;
+}
+
+.menu-container {
+  display: flex;
+  height: 60px;
+  background-color: $darkest-green-color;
+  border: 2px solid $darkest-grey-color;
+  justify-content: space-between;
+  align-items: center;
+  padding: 2px 5px 2px 5px;
+}
+.menu-container img {
+  height: 100%;
+}
+.menu-container svg {
+  height: 100%;
+}
+.menu-container .MuiIconButton-root {
+  padding: 0;
+}
+
+.notebook-container {
+  width: auto;
+  background-color: $grey-color;
+  border: 2px solid $darkest-grey-color;
+  border-top-width: 0px;
+  justify-content: center;
+  align-items: flex-start;
+  flex-grow: 1;
+}
+$tamanho-vertical-coluna-2: 53vw;
+.coluna-2 {
+  width: $tamanho-vertical-coluna-2;
+  height: 100vh;
+  flex-shrink: 0;
+}
+
+.camera-container {
+  flex-grow: 2;
+  width: auto;
+  background-color: $grey-color;
+  border: 2px solid $darkest-grey-color;
+  border-left-width: 0px;
+  border-right-width: 0px;
+  justify-content: flex-start;
+  align-items: center;
+}
+
+.video-container {
+  height: calc(9 * #{$tamanho-vertical-coluna-2} / 16);
+  justify-content: center;
+  align-items: center;
+  width: auto;
+}
+
+.question-container {
+  flex-grow: 3;
+  width: auto;
+  background-color: $grey-color;
+  border: 2px solid $darkest-grey-color;
+  border-left-width: 0px;
+  border-right-width: 0px;
+  justify-content: center;
+  align-items: flex-start;
+}
+
+.coluna-3 {
+  width: 22vw;
+  height: 100vh;
+  flex-shrink: 3;
+}
+
+.group-container {
+  height: 40vh;
+  border: 2px solid $darkest-grey-color;
+  background-color: $grey-color;
+  justify-content: center;
+  align-items: flex-start;
+}
+
+.chat-container {
+  flex-grow: 1;
+  width: auto;
+  background-color: $grey-color;
+  border: 2px solid $darkest-grey-color;
+  border-top-width: 0px;
+  justify-content: center;
+  align-items: flex-start;
+}

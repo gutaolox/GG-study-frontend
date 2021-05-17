@@ -1,3 +1,11 @@
+// CORES PADRÕES
+$darkest-grey-color: #151924;
+$grey-color: #393d46;
+$darkest-green-color: #094f52;
+$green-color: #2b9a9e;
+$lighter-green-color: #3fb8bd;
+$lighter-color: #e1e4eb;
+
 .App {
   text-align: center;
 }
@@ -14,18 +22,18 @@
 }
 
 .App-header {
-  background-color: #61dafb;
+  background-color: #094f52;
   min-height: 100vh;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
   font-size: calc(10px + 2vmin);
-  color: white;
+  color: #e1e4eb;
 }
 
 .App-link {
-  color: #61dafb;
+  color: #393d46;
 }
 
 @keyframes App-logo-spin {
