@@ -7,7 +7,6 @@ import { getRandomPastelColor } from '../../Utils/managingColors';
 
 import logo from '../../Images/logo.png';
 import './Classroom.scss';
-
 export const Classroom = ({ socketConnection }) => {
   const [isStudent, setIsStudent] = useState(false);
   const getUser = () => {
@@ -18,7 +17,7 @@ export const Classroom = ({ socketConnection }) => {
   };
   useEffect(getUser, []);
   return (
-    <main className='container'>
+    <main className='container-classroom'>
       <section className='coluna-1'>
         <div className='menu-container'>
           <Tooltip title='Back'>

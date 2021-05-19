@@ -2,5 +2,7 @@
   "test": "teste123",
   "username": "Ususário",
   "password": "Senha",
-  "login": "Login"
+  "login": "Login",
+  "SelectYourClassroom": "Select your classroom",
+  "joinClass": "Join class"
 }

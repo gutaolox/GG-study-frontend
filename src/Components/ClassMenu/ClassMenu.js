@@ -1,11 +1,20 @@
 import React, { useEffect, useState } from 'react';
 import * as loginService from '../../Services/LoginService';
-import { IfDiv } from '../../Shared/IfDiv';
 import * as classService from '../../Services/ClassService';
-import { Button, MenuItem, Select } from '@material-ui/core';
+import { IfDiv } from '../../Shared/IfDiv';
+import {
+  Button,
+  MenuItem,
+  Select,
+  InputLabel,
+  FormControl,
+} from '@material-ui/core';
 import { connect } from 'twilio-video';
 import { Student } from '../Students/Student';
 import { FormattedMessage } from 'react-intl';
+import icone from '../../Images/icone.png';
+
+import './ClassMenu.scss';
 
 export const ClassMenu = ({ socketConnection }) => {
   const [student, setStudent] = useState();
@@ -58,7 +67,7 @@ export const ClassMenu = ({ socketConnection }) => {
   useEffect(getClassRoom, [socketConnection]);
   useEffect(getUser, []);
   return (
-    <div>
+    <div className='container-class-menu'>
       <IfDiv condition={classJoined}>
         <Student
           user={student}
@@ -67,21 +76,38 @@ export const ClassMenu = ({ socketConnection }) => {
           setClassId={setSelectedClass}
         />
       </IfDiv>
-      <IfDiv condition={!classJoined}>
-        <Select value={selectedClass} onChange={handleClassSelected}>
-          {classRoom?.map((classes) => {
-            return (
-              <MenuItem key={classes._id} value={classes._id}>
-                {classes._id}
-              </MenuItem>
-            );
-          })}
-        </Select>
-        <Button
-          variant='outlined'
-          color='secondary'
-          onClick={() => joinClass()}
-        >
+      <IfDiv
+        condition={!classJoined}
+        className='container-class-menu-height-organization'
+      >
+        <img
+          className='icon-GGStudy'
+          src={icone}
+          alt='Icon GG Study'
+          title='GG Study'
+        />
+        <FormControl>
+          <InputLabel id='label-select-classroom' className='label-select'>
+            <FormattedMessage id='SelectYourClassroom' />
+          </InputLabel>
+          <Select
+            value={selectedClass}
+            onChange={handleClassSelected}
+            labelId='label-select-classroom'
+            id='select-classroom'
+            className='select'
+            displayEmpty={false}
+          >
+            {classRoom?.map((classes) => {
+              return (
+                <MenuItem key={classes._id} value={classes._id}>
+                  {classes.name}
+                </MenuItem>
+              );
+            })}
+          </Select>
+        </FormControl>
+        <Button variant='contained' color='primary' onClick={() => joinClass()}>
           <FormattedMessage id='joinClass' />
         </Button>
       </IfDiv>
