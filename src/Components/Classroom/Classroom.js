@@ -7,12 +7,15 @@ import { getRandomPastelColor } from '../../Utils/managingColors';
 
 import logo from '../../Images/logo.png';
 import './Classroom.scss';
+import { CameraArea } from '../VideoConference/CameraArea';
 
-export const Classroom = ({ socketConnection }) => {
+export const Classroom = ({ socketConnection, studentClass }) => {
   const [isStudent, setIsStudent] = useState(false);
+  const [user, setUser] = useState();
   const getUser = () => {
     loginService.profile().then((result) => {
       const { data } = result;
+      setUser(data);
       setIsStudent(data && data.role === 'Student');
     });
   };
@@ -36,7 +39,13 @@ export const Classroom = ({ socketConnection }) => {
         <IfDiv condition={!isStudent} className='notebook-container'></IfDiv>
       </section>
       <section className='coluna-2'>
-        <div className='camera-container'></div>
+        <div className='camera-container'>
+          <CameraArea
+            user={user}
+            socket={socketConnection}
+            studentClass={studentClass}
+          />
+        </div>
         <div className='video-container'></div>
         <div className='question-container'></div>
       </section>
