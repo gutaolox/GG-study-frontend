@@ -26,9 +26,16 @@
   justify-content: space-between;
   flex: 0.3;
 }
+
 .Login-username {
   margin-bottom: 5px;
+}
+.MuiInputBase-input {
+  -webkit-appearance: none !important;
+  -moz-appearance: none !important;
+  appearance: none !important;
   background-color: inherit !important;
+  color: $lighter-color !important;
 }
 
 .MuiInputBase-root.MuiInput-root.MuiInput-underline.MuiInputBase-formControl.MuiInput-formControl:before {

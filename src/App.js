@@ -2,7 +2,12 @@ import React, { useEffect, useState } from 'react';
 import './App.scss';
 import { IntlProvider } from 'react-intl';
 import * as messages from './intl/port.json';
-import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
+import {
+  BrowserRouter as Router,
+  Switch,
+  Route,
+  Redirect,
+} from 'react-router-dom';
 import { MuiThemeProvider, createMuiTheme } from '@material-ui/core/styles';
 import { Login } from './Components/Login/Login';
 import { CookiesProvider } from 'react-cookie';
@@ -42,6 +47,9 @@ const App = () => {
           <div className='App-header'>
             <Router>
               <Switch>
+                <Route exact path='/'>
+                  <Redirect to='/login' />
+                </Route>
                 <Route path='/login' component={Login} />
                 <PrivateRoute path='/profile'>
                   <Profile />

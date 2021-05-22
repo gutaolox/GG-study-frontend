@@ -4,5 +4,7 @@
   "password": "Senha",
   "login": "Login",
   "SelectYourClassroom": "Select your classroom",
-  "joinClass": "Join class"
+  "joinClass": "Join class",
+  "send": "Send",
+  "you": "You"
 }

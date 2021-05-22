@@ -18,7 +18,9 @@
 
 .coluna-1 {
   width: 25vw;
+  max-width: 25vw;
   height: 100vh;
+  max-height: 100vh;
 }
 
 .menu-container {
@@ -53,6 +55,8 @@ $tamanho-vertical-coluna-2: 53vw;
 .coluna-2 {
   width: $tamanho-vertical-coluna-2;
   height: 100vh;
+  max-height: 100vh;
+  max-width: $tamanho-vertical-coluna-2;
   flex-shrink: 0;
 }
 
@@ -87,7 +91,9 @@ $tamanho-vertical-coluna-2: 53vw;
 
 .coluna-3 {
   width: 22vw;
+  max-width: 22vw;
   height: 100vh;
+  max-height: 100vh;
   flex-shrink: 3;
 }
 
@@ -101,6 +107,7 @@ $tamanho-vertical-coluna-2: 53vw;
 
 .chat-container {
   flex-grow: 1;
+  max-height: calc(60vh - 6px);
   width: auto;
   background-color: $grey-color;
   border: 2px solid $darkest-grey-color;
