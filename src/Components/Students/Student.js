@@ -1,5 +1,5 @@
 import React from 'react';
-import { CaptureCamera } from '../../Shared/CaptureCamera';
+import { CaptureCamera } from '../VideoConference/CaptureCamera';
 import { USER_ROLES } from '../../Utils/constants';
 import './Student.scss';
 
