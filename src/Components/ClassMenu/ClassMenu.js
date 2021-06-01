@@ -12,35 +12,22 @@ import {
 import { connect } from 'twilio-video';
 import { Student } from '../Students/Student';
 import { FormattedMessage } from 'react-intl';
+import { Classroom } from '../Classroom/Classroom';
 import icone from '../../Images/icone.png';
 
 import './ClassMenu.scss';
 
+
 export const ClassMenu = ({ socketConnection }) => {
-  const [student, setStudent] = useState();
   const [classRoom, setClassRoom] = useState();
   const [selectedClass, setSelectedClass] = useState();
   const [classJoined, setClassJoined] = useState(false);
-  const [authToken, setAuthToken] = useState();
 
   const handleClassSelected = (event) => {
     setSelectedClass(event.target.value);
   };
-
   const joinClass = () => {
-    classService.addStudent(
-      socketConnection,
-      selectedClass,
-      student._id,
-      setAuthToken,
-    );
-  };
-
-  const getUser = () => {
-    loginService.profile().then((result) => {
-      const { data } = result;
-      setStudent(data);
-    });
+    setClassJoined(true);
   };
 
   const getClassRoom = () => {
@@ -48,32 +35,14 @@ export const ClassMenu = ({ socketConnection }) => {
       classService.getAllClass(socketConnection, setClassRoom);
     }
   };
-  useEffect(() => {
-    if (authToken) {
-      connect(authToken, { name: selectedClass }).then(
-        (room) => {
-          console.log(`Successfully joined a Room: ${room}`);
-          room.on('participantConnected', (participant) => {
-            console.log(`A remote Participant connected: ${participant}`);
-          });
-        },
-        (error) => {
-          console.error(`Unable to connect to Room: ${error.message}`);
-        },
-      );
-      setClassJoined(true);
-    }
-  }, [authToken]);
+
   useEffect(getClassRoom, [socketConnection]);
-  useEffect(getUser, []);
   return (
     <div className='container-class-menu'>
       <IfDiv condition={classJoined}>
-        <Student
-          user={student}
+        <Classroom
           socketConnection={socketConnection}
-          classId={selectedClass}
-          setClassId={setSelectedClass}
+          studentClass={selectedClass}
         />
       </IfDiv>
       <IfDiv

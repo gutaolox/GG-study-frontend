@@ -4,15 +4,18 @@ import { IfDiv } from '../../Shared/IfDiv';
 import { IconButton, Tooltip } from '@material-ui/core';
 import { ArrowBack } from '@material-ui/icons';
 import { Chat } from '../Chat/Chat.js';
+import { CameraArea } from '../VideoConference/CameraArea';
 
 import logo from '../../Images/logo.png';
 import './Classroom.scss';
-export const Classroom = ({ socketConnection }) => {
+
+export const Classroom = ({ socketConnection, studentClass }) => {
   const [isStudent, setIsStudent] = useState(false);
-  const [user, setUser] = useState(false);
+  const [user, setUser] = useState();
   const getUser = () => {
     loginService.profile().then((result) => {
       const { data } = result;
+      setUser(data);
       setIsStudent(data && data.role === 'Student');
       if (data) {
         setUser(data);
@@ -36,7 +39,13 @@ export const Classroom = ({ socketConnection }) => {
         <IfDiv condition={!isStudent} className='notebook-container'></IfDiv>
       </section>
       <section className='coluna-2'>
-        <div className='camera-container'></div>
+        <div className='Classroom-camera-container'>
+          <CameraArea
+            user={user}
+            socket={socketConnection}
+            studentClass={studentClass}
+          />
+        </div>
         <div className='video-container'></div>
         <div className='question-container'></div>
       </section>

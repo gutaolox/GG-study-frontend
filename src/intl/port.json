@@ -6,5 +6,9 @@
   "SelectYourClassroom": "Select your classroom",
   "joinClass": "Join class",
   "send": "Send",
-  "you": "You"
+  "you": "You",
+  "unmute": "desmutar",
+  "mute": "mutar",
+  "showVideo": "Mostrar Video",
+  "hideVideo": "Esconder Video"
 }

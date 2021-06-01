@@ -60,8 +60,8 @@ $tamanho-vertical-coluna-2: 53vw;
   flex-shrink: 0;
 }
 
-.camera-container {
-  flex-grow: 2;
+.Classroom-camera-container {
+  flex-grow: 0.5;
   width: auto;
   background-color: $grey-color;
   border: 2px solid $darkest-grey-color;
@@ -79,7 +79,7 @@ $tamanho-vertical-coluna-2: 53vw;
 }
 
 .question-container {
-  flex-grow: 3;
+  flex-grow: 4;
   width: auto;
   background-color: $grey-color;
   border: 2px solid $darkest-grey-color;
