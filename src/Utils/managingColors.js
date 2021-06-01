@@ -89,7 +89,12 @@ export const hexToHSL = (H) => {
   return 'hsl(' + h + ',' + s + '%,' + l + '%)';
 };
 
-export const getRandomPastelColor = () => {
-  const random = Math.floor(Math.random() * 360);
-  return 'hsl(' + random + ', 100%, 70%)';
+const dicNames = {};
+export const getRandomPastelColor = (name) => {
+  if (name && !dicNames[name]) {
+    const random = Math.floor(Math.random() * 360);
+    dicNames[name] = 'hsl(' + random + ', 100%, 70%)';
+  }
+
+  return dicNames[name];
 };

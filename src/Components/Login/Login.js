@@ -1,9 +1,11 @@
 import React from 'react';
 import { Formik } from 'formik';
 import { Button, TextField } from '@material-ui/core';
-import './Login.scss';
 import { FormattedMessage } from 'react-intl';
 import * as loginService from '../../Services/LoginService';
+import './Login.scss';
+
+import icone from '../../Images/icone.png';
 
 export const Login = ({ location, history }) => {
   return (
@@ -41,35 +43,43 @@ export const Login = ({ location, history }) => {
         return (
           <form className='Login-form' onSubmit={handleSubmit}>
             <div className='Login-height-organization'>
-              <div className='Login-username'>
-                <TextField
-                  id='username'
-                  name='username'
-                  variant='outlined'
-                  onChange={handleChange}
-                  value={values.username}
-                  label={<FormattedMessage id='username' />}
-                  onBlur={handleBlur}
-                  error={!!errors.username}
-                  helperText={errors.username}
-                />
-              </div>
-              <div className='Login-password'>
-                <TextField
-                  id='password'
-                  name='password'
-                  variant='outlined'
-                  type='password'
-                  value={values.password}
-                  label={<FormattedMessage id='password' />}
-                  onChange={handleChange}
-                  onBlur={handleBlur}
-                  error={!!errors.password}
-                  helperText={errors.password}
-                />
+              <img
+                className='icone-GGStudy'
+                src={icone}
+                alt='Icon GG Study'
+                title='GG Study'
+              />
+              <div className='Login-entries'>
+                <div className='Login-username'>
+                  <TextField
+                    className='username-input'
+                    id='username'
+                    name='username'
+                    onChange={handleChange}
+                    value={values.username}
+                    label={<FormattedMessage id='username' />}
+                    onBlur={handleBlur}
+                    error={!!errors.username}
+                    helperText={errors.username}
+                  />
+                </div>
+                <div className='Login-password'>
+                  <TextField
+                    id='password'
+                    name='password'
+                    type='password'
+                    className='password-input'
+                    value={values.password}
+                    label={<FormattedMessage id='password' />}
+                    onChange={handleChange}
+                    onBlur={handleBlur}
+                    error={!!errors.password}
+                    helperText={errors.password}
+                  />
+                </div>
               </div>
               <div className='Login-confirm'>
-                <Button variant='outlined' color='primary' type='submit'>
+                <Button variant='contained' color='primary' type='submit'>
                   <FormattedMessage id='login' />
                 </Button>
               </div>
