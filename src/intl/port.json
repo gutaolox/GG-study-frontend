@@ -2,5 +2,9 @@
   "test": "teste123",
   "username": "Ususário",
   "password": "Senha",
-  "login": "Login"
+  "login": "Login",
+  "unmute": "desmutar",
+  "mute": "mutar",
+  "showVideo": "Mostrar Video",
+  "hideVideo": "Esconder Video"
 }

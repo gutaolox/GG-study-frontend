@@ -2,7 +2,6 @@ import React, { useEffect, useState } from 'react';
 import {
   connect,
   createLocalAudioTrack,
-  createLocalTracks,
   createLocalVideoTrack,
 } from 'twilio-video';
 import * as professorService from '../../Services/ProfessorService';
@@ -15,35 +14,37 @@ export const CameraArea = ({ socket, user, studentClass }) => {
   const [roomToken, setRoomToken] = useState();
   const [participantsControl, setParticipantsControl] = useState([]);
   const [localParticipant, setLocalParticipant] = useState();
-  const [muted, setMuted] = useState(false);
+  const [muted, setMuted] = useState(true);
   const [hasVideo, setHasVideo] = useState(false);
+  const [localAudioTrack, setLocalAudioTrack] = useState();
+  const [localVideoTrack, setLocalVideoTrack] = useState();
 
-  const unmuteVideo = () => {
+  const openVideo = () => {
     if (roomToken) {
-      createLocalVideoTrack({
-        width: 640,
-      }).then((localTracks) => {
-        localParticipant.publishTracks(localTracks);
+      createLocalVideoTrack().then((localTrack) => {
+        setLocalVideoTrack(localTrack);
+        return localParticipant.publishTrack(localTrack);
       });
     }
   };
   const unmuteAudio = () => {
     if (roomToken) {
-      createLocalAudioTrack().then((localTracks) => {
-        localParticipant.publishTracks(localTracks);
+      createLocalAudioTrack().then((localTrack) => {
+        setLocalAudioTrack(localTrack);
+        return localParticipant.publishTrack(localTrack);
       });
     }
   };
 
-  const muteVideo = () => {
-    localParticipant.videoTracks.forEach((publication) => {
+  const closeVideo = (participant) => {
+    participant.videoTracks.forEach((publication) => {
       publication.track.stop();
       publication.unpublish();
     });
   };
 
-  const muteAudio = () => {
-    localParticipant.audioTracks.forEach((publication) => {
+  const muteAudio = (participant) => {
+    participant.audioTracks.forEach((publication) => {
       publication.track.stop();
       publication.unpublish();
     });
@@ -55,18 +56,28 @@ export const CameraArea = ({ socket, user, studentClass }) => {
         name: 'my-room-name',
       }).then(
         (room) => {
-          setLocalParticipant(room.localParticipant);
-          setParticipantsControl([
-            room.localParticipant,
-            ...room.participants.values(),
-          ]);
           console.log(`Successfully joined a Room: ${room}`);
+          setLocalParticipant(room.localParticipant);
+          closeVideo(room.localParticipant);
+          muteAudio(room.localParticipant);
+          setParticipantsControl([...room.participants.values()]);
           room.on('participantConnected', (participant) => {
             console.log(`A remote Participant connected: ${participant}`);
-            setParticipantsControl([
-              room.localParticipant,
-              ...room.participants.values(),
-            ]);
+
+            setParticipantsControl([...room.participants.values()]);
+          });
+          window.addEventListener('beforeunload', () => {
+            room.disconnect();
+          });
+          window.addEventListener('unload', () => {
+            room.disconnect();
+          });
+          window.addEventListener('close', () => {
+            room.disconnect();
+          });
+          room.on('participantDisconnected', (participant) => {
+            console.log(`Successfully disconnected a Room: ${participant}`);
+            setParticipantsControl([...room.participants.values()]);
           });
         },
         (error) => {
@@ -77,7 +88,6 @@ export const CameraArea = ({ socket, user, studentClass }) => {
   };
   const initClass = () => {
     if (user) {
-      console.log(user);
       if (user.role === 'Professor') {
         professorService.initClass(socket, user._id, setRoomToken);
       } else {
@@ -86,11 +96,29 @@ export const CameraArea = ({ socket, user, studentClass }) => {
     }
   };
 
+  const LocalParticipantComponent = () => {
+    if (user) {
+      return (
+        <CaptureCamera
+          localAudioTrack={localAudioTrack}
+          localVideoTrack={localVideoTrack}
+          participant={localParticipant}
+          isStudent={user.role === 'Student'}
+          user={user}
+          isLocal={true}
+          localVideoCheck={hasVideo}
+        />
+      );
+    } else {
+      return null;
+    }
+  };
   useEffect(createRoom, [roomToken]);
   useEffect(initClass, [user]);
   return (
-    <div>
+    <div className='CameraArea-main-organization'>
       <div className='CameraArea-cameras-display'>
+        <LocalParticipantComponent />
         {participantsControl.map((participant, index) => {
           return (
             <CaptureCamera
@@ -98,11 +126,31 @@ export const CameraArea = ({ socket, user, studentClass }) => {
               participant={participant}
               isStudent={user.role === 'Student'}
               user={user}
+              isLocal={false}
             />
           );
         })}
       </div>
-      <ConferenceMenu />
+      <ConferenceMenu
+        muted={muted}
+        hasVideo={hasVideo}
+        setHasVideo={(newVideoState) => {
+          if (newVideoState) {
+            openVideo();
+          } else {
+            closeVideo(localParticipant);
+          }
+          setHasVideo(newVideoState);
+        }}
+        setMuted={(newAudioState) => {
+          if (newAudioState) {
+            muteAudio(localParticipant);
+          } else {
+            unmuteAudio();
+          }
+          setMuted(newAudioState);
+        }}
+      />
     </div>
   );
 };

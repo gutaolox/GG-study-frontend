@@ -1,10 +1,13 @@
 import { Button } from '@material-ui/core';
-import React, { useState } from 'react';
-import { FormattedMessage } from 'react-intl';
+import React from 'react';
 import { IfDiv } from '../../Shared/IfDiv';
+import VideocamIcon from '@material-ui/icons/Videocam';
+import VideocamOffIcon from '@material-ui/icons/VideocamOff';
+import MicIcon from '@material-ui/icons/Mic';
+import MicOffIcon from '@material-ui/icons/MicOff';
 
-export const ConferenceMenu = (muted, setMuted, hasVideo, setHasVideo) => {
-  //Implementar funções chamando o mute e o unmute
+export const ConferenceMenu = ({ muted, setMuted, hasVideo, setHasVideo }) => {
+  // Implementar funções chamando o mute e o unmute
   return (
     <div className='ConferenceMenu-menu-organization'>
       <Button
@@ -13,10 +16,10 @@ export const ConferenceMenu = (muted, setMuted, hasVideo, setHasVideo) => {
         }}
       >
         <IfDiv condition={muted}>
-          <FormattedMessage id='unmute' />
+          <MicOffIcon />
         </IfDiv>
         <IfDiv condition={!muted}>
-          <FormattedMessage id='mute' />
+          <MicIcon />
         </IfDiv>
       </Button>
       <Button
@@ -25,10 +28,10 @@ export const ConferenceMenu = (muted, setMuted, hasVideo, setHasVideo) => {
         }}
       >
         <IfDiv condition={hasVideo}>
-          <FormattedMessage id='hideVideo' />
+          <VideocamIcon />
         </IfDiv>
         <IfDiv condition={!hasVideo}>
-          <FormattedMessage id='showVideo' />
+          <VideocamOffIcon />
         </IfDiv>
       </Button>
     </div>

@@ -3,7 +3,6 @@ export const initClass = (socket, professorId, setToken) => {
     professorId,
   });
   socket.on('classCreated', (data) => {
-    console.log(data);
     setToken(data.connectToken);
   });
 };

@@ -39,7 +39,7 @@ export const Classroom = ({ socketConnection, studentClass }) => {
         <IfDiv condition={!isStudent} className='notebook-container'></IfDiv>
       </section>
       <section className='coluna-2'>
-        <div className='camera-container'>
+        <div className='Classroom-camera-container'>
           <CameraArea
             user={user}
             socket={socketConnection}
