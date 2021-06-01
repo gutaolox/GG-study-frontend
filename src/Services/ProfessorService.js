@@ -1,6 +1,7 @@
-export const initClass = (socket, professorId, setToken) => {
+export const initClass = (socket, classroom, setToken) => {
   socket.emit('createClassRoom', {
-    professorId,
+    professorId: classroom.professorId,
+    name: classroom.className,
   });
   socket.on('classCreated', (data) => {
     setToken(data.connectToken);

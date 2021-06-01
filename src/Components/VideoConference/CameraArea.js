@@ -4,14 +4,12 @@ import {
   createLocalAudioTrack,
   createLocalVideoTrack,
 } from 'twilio-video';
-import * as professorService from '../../Services/ProfessorService';
+
 import './style.scss';
-import * as classService from '../../Services/ClassService';
 import { CaptureCamera } from './CaptureCamera';
 import { ConferenceMenu } from './ConferenceMenu';
 
-export const CameraArea = ({ socket, user, studentClass }) => {
-  const [roomToken, setRoomToken] = useState();
+export const CameraArea = ({ user, roomToken }) => {
   const [participantsControl, setParticipantsControl] = useState([]);
   const [localParticipant, setLocalParticipant] = useState();
   const [muted, setMuted] = useState(true);
@@ -86,15 +84,6 @@ export const CameraArea = ({ socket, user, studentClass }) => {
       );
     }
   };
-  const initClass = () => {
-    if (user) {
-      if (user.role === 'Professor') {
-        professorService.initClass(socket, user._id, setRoomToken);
-      } else {
-        classService.addStudent(socket, studentClass, user._id, setRoomToken);
-      }
-    }
-  };
 
   const LocalParticipantComponent = () => {
     if (user) {
@@ -114,7 +103,7 @@ export const CameraArea = ({ socket, user, studentClass }) => {
     }
   };
   useEffect(createRoom, [roomToken]);
-  useEffect(initClass, [user]);
+
   return (
     <div className='CameraArea-main-organization'>
       <div className='CameraArea-cameras-display'>

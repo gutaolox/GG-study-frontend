@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from 'react';
-import * as loginService from '../../Services/LoginService';
 import * as classService from '../../Services/ClassService';
 import { IfDiv } from '../../Shared/IfDiv';
 import {
@@ -9,14 +8,11 @@ import {
   InputLabel,
   FormControl,
 } from '@material-ui/core';
-import { connect } from 'twilio-video';
-import { Student } from '../Students/Student';
 import { FormattedMessage } from 'react-intl';
 import { Classroom } from '../Classroom/Classroom';
 import icone from '../../Images/icone.png';
 
 import './ClassMenu.scss';
-
 
 export const ClassMenu = ({ socketConnection }) => {
   const [classRoom, setClassRoom] = useState();

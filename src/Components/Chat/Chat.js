@@ -15,19 +15,13 @@ export const Chat = ({ socketConnection, user }) => {
   const [newText, setNewText] = useState('');
 
   const getMessages = () => {
-    if (socketConnection) {
+    if (socketConnection && user) {
       chatService.messageListen(socketConnection, (data) => {
         setNewOutsideMessage(data);
       });
       chatService.getMessages(socketConnection, setMessages);
     }
   };
-
-  // const scrollToBottom = () => {
-
-  //   //messagesEndRef.current?.scrollIntoView({ behavior: 'smooth' });
-  // };
-
   const sendMessage = () => {
     if (!newText) return;
     console.log('user ', user);
@@ -41,7 +35,7 @@ export const Chat = ({ socketConnection, user }) => {
   useEffect(() => {
     messagesEndRef?.current?.scrollToBottom();
   }, [messages]);
-  useEffect(getMessages, [socketConnection]);
+  useEffect(getMessages, [socketConnection, user]);
   useEffect(() => {
     if (newOutsideMessage) {
       setMessages([...messages, newOutsideMessage]);
@@ -81,9 +75,8 @@ export const Chat = ({ socketConnection, user }) => {
                       ) : (
                         message.from
                       )}
-                      :
                     </div>
-                    {message.text}
+                    {': ' + message.text}
                   </div>
                 </Tooltip>
               );
