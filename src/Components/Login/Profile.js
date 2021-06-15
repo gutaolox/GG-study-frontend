@@ -5,7 +5,6 @@ import { useEffect, useState } from 'react';
 import * as loginService from '../../Services/LoginService';
 import { Button } from '@material-ui/core';
 import socketIOClient from 'socket.io-client';
-import { BACK_END_API_LINK } from '../../Configs/backend';
 
 export const Profile = () => {
   const [user, setUser] = useState({});
@@ -21,7 +20,7 @@ export const Profile = () => {
 
   useEffect(() => {
     const socket = socketIOClient(
-      `${BACK_END_API_LINK.LINK}:${BACK_END_API_LINK.PORT}`,
+      `${process.env.REACT_APP_LINK}:${process.env.REACT_APP_PORT}`,
       {
         transportOptions: {
           polling: {
