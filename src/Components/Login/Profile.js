@@ -20,7 +20,7 @@ export const Profile = () => {
 
   useEffect(() => {
     const socket = socketIOClient(
-      `${process.env.REACT_APP_LINK}:${process.env.REACT_APP_PORT}`,
+      `${process.env.REACT_APP_LINK}`,
       {
         transportOptions: {
           polling: {
