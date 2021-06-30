@@ -10,6 +10,8 @@ import { CameraArea } from '../VideoConference/CameraArea';
 
 import logo from '../../Images/logo.png';
 import './Classroom.scss';
+import { PALETTE, USER_ROLES } from '../../Utils/constants';
+import { FormattedMessage } from 'react-intl';
 
 export const Classroom = ({ socketConnection, studentClass }) => {
   const [roomToken, setRoomToken] = useState();
@@ -19,7 +21,7 @@ export const Classroom = ({ socketConnection, studentClass }) => {
     loginService.profile().then((result) => {
       const { data } = result;
       setUser(data);
-      setIsStudent(data && data.role === 'Student');
+      setIsStudent(data && data.role === USER_ROLES.STUDENT);
       if (data) {
         setUser(data);
       }
@@ -27,7 +29,7 @@ export const Classroom = ({ socketConnection, studentClass }) => {
   };
   const initClass = () => {
     if (user) {
-      if (user.role === 'Professor') {
+      if (user.role === USER_ROLES.PROFESSOR) {
         professorService.initClass(
           socketConnection,
           {
@@ -52,8 +54,8 @@ export const Classroom = ({ socketConnection, studentClass }) => {
     <main className='container-classroom'>
       <section className='coluna-1'>
         <div className='menu-container'>
-          <Tooltip title='Back'>
-            <IconButton aria-label='back' style={{ color: '#e1e4eb' }}>
+          <Tooltip title={<FormattedMessage id='back'/>}>
+            <IconButton aria-label='back' style={{ color: PALETTE.LIGHTER }}>
               <ArrowBack style={{ fontSize: 40 }} />
             </IconButton>
           </Tooltip>

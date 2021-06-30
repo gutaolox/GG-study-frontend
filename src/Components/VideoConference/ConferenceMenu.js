@@ -1,39 +1,39 @@
-import { Button } from '@material-ui/core';
+import { IconButton } from '@material-ui/core';
 import React from 'react';
 import { IfDiv } from '../../Shared/IfDiv';
-import VideocamIcon from '@material-ui/icons/Videocam';
-import VideocamOffIcon from '@material-ui/icons/VideocamOff';
-import MicIcon from '@material-ui/icons/Mic';
-import MicOffIcon from '@material-ui/icons/MicOff';
+import { Mic, MicOff, Videocam, VideocamOff } from '@material-ui/icons';
+import { PALETTE } from '../../Utils/constants';
 
 export const ConferenceMenu = ({ muted, setMuted, hasVideo, setHasVideo }) => {
   // Implementar funções chamando o mute e o unmute
   return (
     <div className='ConferenceMenu-menu-organization'>
-      <Button
+      <IconButton
         onClick={() => {
           setMuted(!muted);
         }}
+        style={{ color: PALETTE.LIGHTER }}
       >
         <IfDiv condition={muted}>
-          <MicOffIcon />
+           <MicOff style={{ fontSize: 20 }} />
         </IfDiv>
         <IfDiv condition={!muted}>
-          <MicIcon />
+          <Mic style={{ fontSize: 20 }} />
         </IfDiv>
-      </Button>
-      <Button
+      </IconButton>
+      <IconButton
         onClick={() => {
           setHasVideo(!hasVideo);
         }}
+        style={{ color: PALETTE.LIGHTER }}
       >
         <IfDiv condition={hasVideo}>
-          <VideocamIcon />
+          <Videocam style={{ fontSize: 20 }} />
         </IfDiv>
         <IfDiv condition={!hasVideo}>
-          <VideocamOffIcon />
+          <VideocamOff style={{ fontSize: 20 }} />
         </IfDiv>
-      </Button>
+      </IconButton>
     </div>
   );
 };

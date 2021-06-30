@@ -1,44 +1,77 @@
+@import '../../App.scss';
+@import '../../Components/Classroom/Classroom.scss';
+
 .CameraArea-cameras-display {
   display: flex;
-  justify-content: space-around;
+  justify-content: flex-start;
   align-items: center;
   flex: 1;
 }
 
+$height-CaptureCamera: calc(#{$height-camera-container} - 8px);
 .CaptureCamera-video-div-style {
-  background: #3fb8bd;
-  border: 2px solid #094f52;
+  background: $lighter-green-color;
+  border: 2px solid $darkest-green-color;
   box-sizing: border-box;
   box-shadow: inset 0px 4px 4px rgba(0, 0, 0, 0.25);
   border-radius: 10px;
   display: flex;
   align-items: center;
   justify-content: center;
-  width: calc(9 * 300px / 16);
-  height: 120px;
-}
-
-.ConferenceMenu-menu-organization {
-  display: flex;
-  justify-content: space-around;
-  align-items: center;
+  width: calc(16 * #{$height-CaptureCamera}  / 9);
+  height: $height-CaptureCamera;
 }
 
 .CaptureCamera-video-adjusting {
   object-fit: fill;
-  width: 90%;
-  height: 90%;
+  width: auto;
+  height: auto;
+  max-height: 95%;
+  max-width: 95%;
 }
 
 .CameraArea-main-organization {
   display: flex;
-  flex-direction: column;
+  flex-direction: row-reverse;
   height: 100%;
 }
 
 .CaptureCamera-text-style {
-  height: 120px;
+  //height: 120px;
   display: flex;
   align-items: center;
   justify-content: center;
+}
+
+
+.ConferenceMenu-menu-organization {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  align-items: center;
+  margin: 4px;
+}
+
+.ConferenceMenu-menu-organization > .MuiIconButton-root{
+  width: 40px !important;
+  min-width: 40px !important;
+  height: 40px !important;
+  min-height: 40px !important;
+  padding: 4px !important;
+  font-size: inherit;
+  background-color: $lighter-green-color;
+  border: 2px solid $darkest-green-color;
+  box-sizing: border-box;
+  box-shadow: inset 0px 4px 4px rgba(0, 0, 0, 0.25);
+}
+
+.ConferenceMenu-menu-organization > .MuiIconButton-root:hover{
+  background-color: $green-color;
+  box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+}
+
+.ConferenceMenu-menu-organization > .MuiIconButton-root > .MuiIconButton-label > div{
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }

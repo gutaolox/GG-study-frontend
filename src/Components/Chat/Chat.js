@@ -1,12 +1,13 @@
 import React, { useEffect, useState, useRef } from 'react';
 import * as chatService from '../../Services/ChatService';
 import { format } from 'date-fns';
-import { Button, TextField, Tooltip } from '@material-ui/core';
+import { IconButton, TextField, Tooltip } from '@material-ui/core';
 import { Send } from '@material-ui/icons';
 import { getRandomPastelColor } from '../../Utils/managingColors';
 import { FormattedMessage } from 'react-intl';
 import { Scrollbars } from 'react-custom-scrollbars';
 import './Chat.scss';
+import { PALETTE } from '../../Utils/constants';
 
 export const Chat = ({ socketConnection, user }) => {
   const messagesEndRef = useRef(null);
@@ -74,9 +75,9 @@ export const Chat = ({ socketConnection, user }) => {
                         <FormattedMessage id='you' />
                       ) : (
                         message.from
-                      )}
+                      )}{':'}&nbsp;
                     </div>
-                    {': ' + message.text}
+                    {message.text}
                   </div>
                 </Tooltip>
               );
@@ -93,14 +94,13 @@ export const Chat = ({ socketConnection, user }) => {
             if (e.key === 'Enter') sendMessage();
           }}
         />
-        <Button
-          variant='contained'
-          color='primary'
+        <IconButton
           onClick={sendMessage}
-          endIcon={<Send />}
+          style={{ color: PALETTE.LIGHTER }}
         >
-          <FormattedMessage id='send' />
-        </Button>
+          <Send />
+          {/* <FormattedMessage id='send' /> */}
+        </IconButton>
       </div>
     </div>
   );

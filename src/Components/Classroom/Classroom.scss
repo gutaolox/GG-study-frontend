@@ -3,7 +3,7 @@
 .container-classroom {
   font-family: Source Serif Pro;
   font-style: normal;
-  font-size: 20px;
+  font-size: 0.7em;
   letter-spacing: 0.03em;
   background-color: $darkest-grey-color;
   height: 100vh;
@@ -51,17 +51,19 @@
   align-items: flex-start;
   flex-grow: 1;
 }
-$tamanho-vertical-coluna-2: 53vw;
+$vertical-size-column-2: 53vw;
 .coluna-2 {
-  width: $tamanho-vertical-coluna-2;
+  width: $vertical-size-column-2;
   height: 100vh;
   max-height: 100vh;
-  max-width: $tamanho-vertical-coluna-2;
+  max-width: $vertical-size-column-2;
   flex-shrink: 0;
 }
 
+$height-camera-container: 16vh;
 .Classroom-camera-container {
-  flex-grow: 0.5;
+  //flex-grow: 0.5;
+  height: $height-camera-container;
   width: auto;
   background-color: $grey-color;
   border: 2px solid $darkest-grey-color;
@@ -72,14 +74,14 @@ $tamanho-vertical-coluna-2: 53vw;
 }
 
 .video-container {
-  height: calc(9 * #{$tamanho-vertical-coluna-2} / 16);
+  height: calc(9 * #{$vertical-size-column-2} / 16);
   justify-content: center;
   align-items: center;
   width: auto;
 }
 
 .question-container {
-  flex-grow: 4;
+  flex-grow: 1;
   width: auto;
   background-color: $grey-color;
   border: 2px solid $darkest-grey-color;
