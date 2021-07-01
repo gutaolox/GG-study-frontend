@@ -66,7 +66,7 @@ export const ClassMenu = ({ socketConnection }) => {
             {classRoom?.map((classes) => {
               return (
                 <MenuItem key={classes._id} value={classes._id}>
-                  {classes.name}
+                  {classes.category}
                 </MenuItem>
               );
             })}

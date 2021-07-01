@@ -8,6 +8,7 @@ import {
 import './style.scss';
 import { CaptureCamera } from './CaptureCamera';
 import { ConferenceMenu } from './ConferenceMenu';
+import { USER_ROLES } from '../../Utils/constants.js';
 
 export const CameraArea = ({ user, roomToken }) => {
   const [participantsControl, setParticipantsControl] = useState([]);
@@ -92,7 +93,7 @@ export const CameraArea = ({ user, roomToken }) => {
           localAudioTrack={localAudioTrack}
           localVideoTrack={localVideoTrack}
           participant={localParticipant}
-          isStudent={user.role === 'Student'}
+          isStudent={user.role === USER_ROLES.STUDENT}
           user={user}
           isLocal={true}
           localVideoCheck={hasVideo}
@@ -113,7 +114,7 @@ export const CameraArea = ({ user, roomToken }) => {
             <CaptureCamera
               key={index}
               participant={participant}
-              isStudent={user.role === 'Student'}
+              isStudent={user.role === USER_ROLES.STUDENT}
               user={user}
               isLocal={false}
             />

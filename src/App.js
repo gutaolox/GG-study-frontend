@@ -17,14 +17,15 @@ import { Professor } from './Components/Professor/Professor';
 import { customSocket } from './Utils/customSocket';
 import { ClassMenu } from './Components/ClassMenu/ClassMenu';
 import { Classroom } from './Components/Classroom/Classroom';
+import { PALETTE } from './Utils/constants';
 
 const theme = createMuiTheme({
   palette: {
     primary: {
-      main: '#094f52',
+      main: PALETTE.DARKEST_GREEN,
     },
     secondary: {
-      main: '#393d46',
+      main: PALETTE.GREY,
     },
   },
 });

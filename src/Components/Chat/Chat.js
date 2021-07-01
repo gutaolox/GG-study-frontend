@@ -1,14 +1,15 @@
 import React, { useEffect, useState, useRef } from 'react';
 import * as chatService from '../../Services/ChatService';
 import { format } from 'date-fns';
-import { Button, TextField, Tooltip } from '@material-ui/core';
+import { IconButton, TextField, Tooltip } from '@material-ui/core';
 import { Send } from '@material-ui/icons';
 import { getRandomPastelColor } from '../../Utils/managingColors';
 import { FormattedMessage } from 'react-intl';
 import { Scrollbars } from 'react-custom-scrollbars';
 import './Chat.scss';
+import { PALETTE } from '../../Utils/constants';
 
-export const Chat = ({ socketConnection, user }) => {
+export const Chat = ({ socketConnection, user, idClass }) => {
   const messagesEndRef = useRef(null);
   const [messages, setMessages] = useState([]);
   const [newOutsideMessage, setNewOutsideMessage] = useState();
@@ -26,6 +27,7 @@ export const Chat = ({ socketConnection, user }) => {
     if (!newText) return;
     console.log('user ', user);
     chatService.listenMessage(socketConnection, {
+      classRoom: idClass,
       from: user.name,
       text: newText,
       date: new Date(),
@@ -75,8 +77,9 @@ export const Chat = ({ socketConnection, user }) => {
                       ) : (
                         message.from
                       )}
+                      {':'}&nbsp;
                     </div>
-                    {': ' + message.text}
+                    {message.text}
                   </div>
                 </Tooltip>
               );
@@ -93,14 +96,10 @@ export const Chat = ({ socketConnection, user }) => {
             if (e.key === 'Enter') sendMessage();
           }}
         />
-        <Button
-          variant='contained'
-          color='primary'
-          onClick={sendMessage}
-          endIcon={<Send />}
-        >
-          <FormattedMessage id='send' />
-        </Button>
+        <IconButton onClick={sendMessage} style={{ color: PALETTE.LIGHTER }}>
+          <Send />
+          {/* <FormattedMessage id='send' /> */}
+        </IconButton>
       </div>
     </div>
   );
