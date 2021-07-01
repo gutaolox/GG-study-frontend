@@ -13,7 +13,10 @@ import './Classroom.scss';
 import { PALETTE, USER_ROLES } from '../../Utils/constants';
 import { FormattedMessage } from 'react-intl';
 
-export const Classroom = ({ socketConnection, studentClass }) => {
+export const Classroom = ({
+  socketConnection,
+  idClass = '60dd02372edf90240c54dde6',
+}) => {
   const [roomToken, setRoomToken] = useState();
   const [isStudent, setIsStudent] = useState(false);
   const [user, setUser] = useState();
@@ -33,15 +36,14 @@ export const Classroom = ({ socketConnection, studentClass }) => {
         professorService.initClass(
           socketConnection,
           {
-            professorId: user._id,
-            className: Math.trunc(Math.random() * 1000).toString(),
+            idClass: idClass,
           },
           setRoomToken,
         );
       } else {
         classService.addStudent(
           socketConnection,
-          studentClass,
+          idClass,
           user._id,
           setRoomToken,
         );
@@ -54,7 +56,7 @@ export const Classroom = ({ socketConnection, studentClass }) => {
     <main className='container-classroom'>
       <section className='coluna-1'>
         <div className='menu-container'>
-          <Tooltip title={<FormattedMessage id='back'/>}>
+          <Tooltip title={<FormattedMessage id='back' />}>
             <IconButton aria-label='back' style={{ color: PALETTE.LIGHTER }}>
               <ArrowBack style={{ fontSize: 40 }} />
             </IconButton>
@@ -75,7 +77,11 @@ export const Classroom = ({ socketConnection, studentClass }) => {
       <section className='coluna-3'>
         <div className='group-container'></div>
         <div className='chat-container'>
-          <Chat socketConnection={socketConnection} user={user}></Chat>
+          <Chat
+            socketConnection={socketConnection}
+            user={user}
+            idClass={idClass}
+          ></Chat>
         </div>
       </section>
     </main>

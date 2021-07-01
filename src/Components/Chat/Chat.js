@@ -9,7 +9,7 @@ import { Scrollbars } from 'react-custom-scrollbars';
 import './Chat.scss';
 import { PALETTE } from '../../Utils/constants';
 
-export const Chat = ({ socketConnection, user }) => {
+export const Chat = ({ socketConnection, user, idClass }) => {
   const messagesEndRef = useRef(null);
   const [messages, setMessages] = useState([]);
   const [newOutsideMessage, setNewOutsideMessage] = useState();
@@ -27,6 +27,7 @@ export const Chat = ({ socketConnection, user }) => {
     if (!newText) return;
     console.log('user ', user);
     chatService.listenMessage(socketConnection, {
+      classRoom: idClass,
       from: user.name,
       text: newText,
       date: new Date(),
@@ -75,7 +76,8 @@ export const Chat = ({ socketConnection, user }) => {
                         <FormattedMessage id='you' />
                       ) : (
                         message.from
-                      )}{':'}&nbsp;
+                      )}
+                      {':'}&nbsp;
                     </div>
                     {message.text}
                   </div>
@@ -94,10 +96,7 @@ export const Chat = ({ socketConnection, user }) => {
             if (e.key === 'Enter') sendMessage();
           }}
         />
-        <IconButton
-          onClick={sendMessage}
-          style={{ color: PALETTE.LIGHTER }}
-        >
+        <IconButton onClick={sendMessage} style={{ color: PALETTE.LIGHTER }}>
           <Send />
           {/* <FormattedMessage id='send' /> */}
         </IconButton>
