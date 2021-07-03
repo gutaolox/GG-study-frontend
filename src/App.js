@@ -9,14 +9,11 @@ import {
   Redirect,
 } from 'react-router-dom';
 import { MuiThemeProvider, createMuiTheme } from '@material-ui/core/styles';
-import { Login } from './Components/Login/Login';
 import { CookiesProvider } from 'react-cookie';
 import { PrivateRoute } from './Shared/PrivateRoute';
-import { Profile } from './Components/Login/Profile';
 import { Professor } from './Components/Professor/Professor';
 import { customSocket } from './Utils/customSocket';
-import { ClassMenu } from './Components/ClassMenu/ClassMenu';
-import { Classroom } from './Components/Classroom/Classroom';
+import { ClassMenu, Classroom, Login, Profile } from './Components';
 import { PALETTE } from './Utils/constants';
 
 const theme = createMuiTheme({
