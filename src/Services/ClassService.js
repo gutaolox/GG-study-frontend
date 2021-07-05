@@ -14,3 +14,21 @@ export const addStudent = (socket, idClass, idStudent, tokenSetter) => {
     tokenSetter(data.videoToken);
   });
 };
+
+export const initClass = (socket, classroom, setToken) => {
+  socket.emit('initClassroom', {
+    idClass: classroom.idClass,
+  });
+  socket.on('classCreated', (data) => {
+    setToken(data.connectToken);
+  });
+};
+
+export const closeRoom = (socket, idClass, setCloseRoom) => {
+  socket.emit('closeClassroom', {
+    idClass,
+  });
+  socket.on('classClosed', () => {
+    setCloseRoom(true);
+  });
+};

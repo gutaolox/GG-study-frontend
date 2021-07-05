@@ -4,7 +4,13 @@ import { IfDiv } from '../../Shared/IfDiv';
 import { Mic, MicOff, Videocam, VideocamOff } from '@material-ui/icons';
 import { PALETTE } from '../../Utils/constants';
 
-export const ConferenceMenu = ({ muted, setMuted, hasVideo, setHasVideo }) => {
+export const ConferenceMenu = ({
+  muted,
+  connected,
+  setMuted,
+  hasVideo,
+  setHasVideo,
+}) => {
   // Implementar funções chamando o mute e o unmute
   return (
     <div className='ConferenceMenu-menu-organization'>
@@ -12,26 +18,37 @@ export const ConferenceMenu = ({ muted, setMuted, hasVideo, setHasVideo }) => {
         onClick={() => {
           setMuted(!muted);
         }}
+        disabled={!connected}
         style={{ color: PALETTE.LIGHTER }}
       >
         <IfDiv condition={muted}>
-           <MicOff style={{ fontSize: 20 }} />
+          <MicOff
+            style={{ fontSize: 20 }}
+            color={connected ? '' : 'disabled'}
+          />
         </IfDiv>
         <IfDiv condition={!muted}>
-          <Mic style={{ fontSize: 20 }} />
+          <Mic style={{ fontSize: 20 }} color={connected ? '' : 'disabled'} />
         </IfDiv>
       </IconButton>
       <IconButton
         onClick={() => {
           setHasVideo(!hasVideo);
         }}
+        disabled={!connected}
         style={{ color: PALETTE.LIGHTER }}
       >
         <IfDiv condition={hasVideo}>
-          <Videocam style={{ fontSize: 20 }} />
+          <Videocam
+            style={{ fontSize: 20 }}
+            color={connected ? '' : 'disabled'}
+          />
         </IfDiv>
         <IfDiv condition={!hasVideo}>
-          <VideocamOff style={{ fontSize: 20 }} />
+          <VideocamOff
+            style={{ fontSize: 20 }}
+            color={connected ? '' : 'disabled'}
+          />
         </IfDiv>
       </IconButton>
     </div>

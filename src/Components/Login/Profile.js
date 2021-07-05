@@ -1,7 +1,6 @@
 // @flow
-import * as React from 'react';
 import './Login.scss';
-import { useEffect, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import * as loginService from '../../Services/LoginService';
 import { Button } from '@material-ui/core';
 import socketIOClient from 'socket.io-client';
@@ -17,7 +16,6 @@ const Profile = () => {
       console.log(data);
     });
   };
-
   useEffect(() => {
     const socket = socketIOClient(`${process.env.REACT_APP_LINK}`, {
       transportOptions: {

@@ -1,12 +1,10 @@
 import React, { useEffect, useState } from 'react';
 import * as loginService from '../../Services/LoginService';
-import * as professorService from '../../Services/ProfessorService';
 import * as classService from '../../Services/ClassService';
 import { IfDiv } from '../../Shared/IfDiv';
 import { IconButton, Tooltip } from '@material-ui/core';
 import { ArrowBack } from '@material-ui/icons';
 import { Chat, Participants, CameraArea } from '../index.js';
-
 import logo from '../../Images/logo.png';
 import './Classroom.scss';
 import { PALETTE, USER_ROLES } from '../../Utils/constants';
@@ -14,11 +12,15 @@ import { FormattedMessage } from 'react-intl';
 
 const Classroom = ({
   socketConnection,
+  studentClass,
+  quitClass,
   idClass = '60dd02372edf90240c54dde6',
+  throwError,
 }) => {
   const [roomToken, setRoomToken] = useState();
   const [isStudent, setIsStudent] = useState(false);
   const [user, setUser] = useState();
+  const [closeRoom, setCloseRoom] = useState(false);
   const getUser = () => {
     loginService.profile().then((result) => {
       const { data } = result;
@@ -32,7 +34,8 @@ const Classroom = ({
   const initClass = () => {
     if (user) {
       if (user.role === USER_ROLES.PROFESSOR) {
-        professorService.initClass(
+        throwError('');
+        classService.initClass(
           socketConnection,
           {
             idClass: idClass,
@@ -51,12 +54,26 @@ const Classroom = ({
   };
   useEffect(getUser, []);
   useEffect(initClass, [user]);
+  useEffect(() => {
+    if (closeRoom) {
+      quitClass();
+      if (user.role === USER_ROLES.PROFESSOR) {
+        classService.closeRoom(socketConnection, idClass, setCloseRoom);
+      }
+    }
+  }, [closeRoom]);
   return (
     <main className='container-classroom'>
       <section className='coluna-1'>
         <div className='menu-container'>
           <Tooltip title={<FormattedMessage id='back' />}>
-            <IconButton aria-label='back' style={{ color: PALETTE.LIGHTER }}>
+            <IconButton
+              onClick={() => {
+                setCloseRoom(true);
+              }}
+              aria-label='back'
+              style={{ color: PALETTE.LIGHTER }}
+            >
               <ArrowBack style={{ fontSize: 40 }} />
             </IconButton>
           </Tooltip>
@@ -68,7 +85,12 @@ const Classroom = ({
       </section>
       <section className='coluna-2'>
         <div className='Classroom-camera-container'>
-          <CameraArea user={user} roomToken={roomToken} />
+          <CameraArea
+            closeRoom={closeRoom}
+            user={user}
+            roomToken={roomToken}
+            throwError={throwError}
+          />
         </div>
         <div className='video-container'></div>
         <div className='question-container'></div>

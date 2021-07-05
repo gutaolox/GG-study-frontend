@@ -11,7 +11,7 @@ import {
 import { MuiThemeProvider, createMuiTheme } from '@material-ui/core/styles';
 import { CookiesProvider } from 'react-cookie';
 import { PrivateRoute } from './Shared/PrivateRoute';
-import { Professor } from './Components/Professor/Professor';
+import { Profile } from './Components/Login/Profile';
 import { customSocket } from './Utils/customSocket';
 import { ClassMenu, Classroom, Login, Profile } from './Components';
 import { PALETTE } from './Utils/constants';
@@ -51,9 +51,6 @@ const App = () => {
                 <Route path='/login' component={Login} />
                 <PrivateRoute path='/profile'>
                   <Profile />
-                </PrivateRoute>
-                <PrivateRoute path='/professor'>
-                  <Professor socketConnection={socket} />
                 </PrivateRoute>
                 <PrivateRoute path='/classes'>
                   <ClassMenu socketConnection={socket} />
