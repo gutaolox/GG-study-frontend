@@ -8,15 +8,23 @@ import {
 import './style.scss';
 import { CaptureCamera } from './CaptureCamera';
 import { ConferenceMenu } from './ConferenceMenu';
-import { USER_ROLES } from '../../Utils/constants.js';
+import { USER_ROLES } from '../../Utils/constants';
 
-export const CameraArea = ({ user, roomToken }) => {
+const CameraArea = ({
+  user,
+  roomToken,
+  closeRoom,
+  setCloseRoom,
+  throwError,
+}) => {
   const [participantsControl, setParticipantsControl] = useState([]);
   const [localParticipant, setLocalParticipant] = useState();
   const [muted, setMuted] = useState(true);
   const [hasVideo, setHasVideo] = useState(false);
   const [localAudioTrack, setLocalAudioTrack] = useState();
   const [localVideoTrack, setLocalVideoTrack] = useState();
+  const [connected, setConnected] = useState();
+  const [roomHook, setRoomHook] = useState();
 
   const openVideo = () => {
     if (roomToken) {
@@ -50,6 +58,12 @@ export const CameraArea = ({ user, roomToken }) => {
   };
   // Criar aluno pra receber o peer e montar backend
   const createRoom = () => {
+    // setTimeout(() => {
+    //   if (!connected) {
+    //     throwError('timeoutPermission');
+    //     setCloseRoom(true);
+    //   }
+    // }, 10000);
     if (roomToken) {
       return connect(roomToken, {
         name: 'my-room-name',
@@ -57,21 +71,25 @@ export const CameraArea = ({ user, roomToken }) => {
         (room) => {
           console.log(`Successfully joined a Room: ${room}`);
           setLocalParticipant(room.localParticipant);
+          setRoomHook(room);
           closeVideo(room.localParticipant);
           muteAudio(room.localParticipant);
           setParticipantsControl([...room.participants.values()]);
+          setConnected(true);
           room.on('participantConnected', (participant) => {
             console.log(`A remote Participant connected: ${participant}`);
-
             setParticipantsControl([...room.participants.values()]);
           });
           window.addEventListener('beforeunload', () => {
+            setConnected(false);
             room.disconnect();
           });
           window.addEventListener('unload', () => {
+            setConnected(false);
             room.disconnect();
           });
           window.addEventListener('close', () => {
+            setConnected(false);
             room.disconnect();
           });
           room.on('participantDisconnected', (participant) => {
@@ -80,6 +98,8 @@ export const CameraArea = ({ user, roomToken }) => {
           });
         },
         (error) => {
+          throwError('errorCamera');
+          setCloseRoom(true);
           console.error(`Unable to connect to Room: ${error.message}`);
         },
       );
@@ -104,6 +124,11 @@ export const CameraArea = ({ user, roomToken }) => {
     }
   };
   useEffect(createRoom, [roomToken]);
+  useEffect(() => {
+    if (closeRoom) {
+      roomHook?.disconnect();
+    }
+  }, [closeRoom]);
 
   return (
     <div className='CameraArea-main-organization'>
@@ -124,6 +149,7 @@ export const CameraArea = ({ user, roomToken }) => {
       <ConferenceMenu
         muted={muted}
         hasVideo={hasVideo}
+        connected={connected}
         setHasVideo={(newVideoState) => {
           if (newVideoState) {
             openVideo();
@@ -144,3 +170,4 @@ export const CameraArea = ({ user, roomToken }) => {
     </div>
   );
 };
+export default CameraArea;

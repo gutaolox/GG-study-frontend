@@ -1,12 +1,11 @@
 // @flow
-import * as React from 'react';
 import './Login.scss';
-import { useEffect, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import * as loginService from '../../Services/LoginService';
 import { Button } from '@material-ui/core';
 import socketIOClient from 'socket.io-client';
 
-export const Profile = () => {
+const Profile = () => {
   const [user, setUser] = useState({});
   const [test, setTest] = useState();
   const [s, setS] = useState({});
@@ -17,20 +16,16 @@ export const Profile = () => {
       console.log(data);
     });
   };
-
   useEffect(() => {
-    const socket = socketIOClient(
-      `${process.env.REACT_APP_LINK}`,
-      {
-        transportOptions: {
-          polling: {
-            extraHeaders: {
-              Authorization: localStorage.getItem('token'),
-            },
+    const socket = socketIOClient(`${process.env.REACT_APP_LINK}`, {
+      transportOptions: {
+        polling: {
+          extraHeaders: {
+            Authorization: localStorage.getItem('token'),
           },
         },
       },
-    );
+    });
     setS(socket);
     socket.on('connect', () => {
       setTest('teste');
@@ -63,3 +58,5 @@ export const Profile = () => {
     </div>
   );
 };
+
+export default Profile;

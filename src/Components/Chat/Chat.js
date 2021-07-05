@@ -4,12 +4,13 @@ import { format } from 'date-fns';
 import { IconButton, TextField, Tooltip } from '@material-ui/core';
 import { Send } from '@material-ui/icons';
 import { getRandomPastelColor } from '../../Utils/managingColors';
-import { FormattedMessage } from 'react-intl';
+import { FormattedMessage, useIntl } from 'react-intl';
 import { Scrollbars } from 'react-custom-scrollbars';
-import './Chat.scss';
 import { PALETTE } from '../../Utils/constants';
+import { AreaHeader } from '../../Shared/AreaHeader.js';
+import './Chat.scss';
 
-export const Chat = ({ socketConnection, user, idClass }) => {
+const Chat = ({ socketConnection, user, idClass }) => {
   const messagesEndRef = useRef(null);
   const [messages, setMessages] = useState([]);
   const [newOutsideMessage, setNewOutsideMessage] = useState();
@@ -20,7 +21,7 @@ export const Chat = ({ socketConnection, user, idClass }) => {
       chatService.messageListen(socketConnection, (data) => {
         setNewOutsideMessage(data);
       });
-      chatService.getMessages(socketConnection, setMessages);
+      chatService.getMessages(socketConnection, idClass, setMessages);
     }
   };
   const sendMessage = () => {
@@ -44,63 +45,72 @@ export const Chat = ({ socketConnection, user, idClass }) => {
     }
   }, [newOutsideMessage]);
   return (
-    <div className='container-chat'>
-      <div className='Chat-messages-display'>
-        <Scrollbars
-          style={{ width: '100%', height: '300%' }}
-          autoHideTimeout={1000}
-          ref={messagesEndRef}
-        >
-          {messages
-            .sort((a, b) => (a.date < b.date ? -1 : a.date > b.date ? 1 : 0))
-            .map((message, index) => {
-              return (
-                <Tooltip
-                  title={format(new Date(message.date), 'dd/MM/yyyy HH:mm:ss')}
-                  key={index}
-                  placement='left'
-                >
-                  <div className='message-container'>
-                    <div
-                      style={{
-                        color: getRandomPastelColor(
-                          user.name === message.from ? (
-                            <FormattedMessage id='you' />
-                          ) : (
-                            message.from
+    <AreaHeader text='chat'>
+      <div className='container-chat'>
+        <div className='Chat-messages-display'>
+          <Scrollbars
+            style={{ width: '100%', height: '300%' }}
+            autoHideTimeout={1000}
+            ref={messagesEndRef}
+          >
+            {messages
+              .sort((a, b) => (a.date < b.date ? -1 : a.date > b.date ? 1 : 0))
+              .map((message, index) => {
+                return (
+                  <Tooltip
+                    title={format(
+                      new Date(message.date),
+                      'dd/MM/yyyy HH:mm:ss',
+                    )}
+                    key={index}
+                    placement='left'
+                  >
+                    <div className='message-container'>
+                      <div
+                        style={{
+                          color: getRandomPastelColor(
+                            user.name === message.from ? (
+                              <FormattedMessage id='you' />
+                            ) : (
+                              message.from
+                            ),
                           ),
-                        ),
-                      }}
-                    >
-                      {user.name === message.from ? (
-                        <FormattedMessage id='you' />
-                      ) : (
-                        message.from
-                      )}
-                      {':'}&nbsp;
+                        }}
+                      >
+                        {user.name === message.from ? (
+                          <FormattedMessage id='you' />
+                        ) : (
+                          message.from
+                        )}
+                        {':'}&nbsp;
+                      </div>
+                      {message.text}
                     </div>
-                    {message.text}
-                  </div>
-                </Tooltip>
-              );
-            })}
-        </Scrollbars>
+                  </Tooltip>
+                );
+              })}
+          </Scrollbars>
+        </div>
+        <div className='Chat-input-display'>
+          <TextField
+            value={newText}
+            color='primary'
+            variant='outlined'
+            className='Chat-textfield'
+            placeholder={useIntl().formatMessage({ id: 'typeYourTextHere' })}
+            onChange={(event) => setNewText(event.target.value)}
+            onKeyDown={(e) => {
+              if (e.key === 'Enter') sendMessage();
+            }}
+          />
+          <IconButton onClick={sendMessage} style={{ color: PALETTE.LIGHTER }}>
+            <Send />
+            {/* <FormattedMessage id='send' /> */}
+          </IconButton>
+        </div>
       </div>
-      <div className='Chat-input-display'>
-        <TextField
-          value={newText}
-          color='primary'
-          className='Chat-textfield'
-          onChange={(event) => setNewText(event.target.value)}
-          onKeyDown={(e) => {
-            if (e.key === 'Enter') sendMessage();
-          }}
-        />
-        <IconButton onClick={sendMessage} style={{ color: PALETTE.LIGHTER }}>
-          <Send />
-          {/* <FormattedMessage id='send' /> */}
-        </IconButton>
-      </div>
-    </div>
+    </AreaHeader>
   );
 };
+
+export default Chat;

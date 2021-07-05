@@ -9,15 +9,16 @@ import {
   FormControl,
 } from '@material-ui/core';
 import { FormattedMessage } from 'react-intl';
-import { Classroom } from '../Classroom/Classroom';
+import { Classroom } from '../index.js';
 import icone from '../../Images/icone.png';
 
 import './ClassMenu.scss';
 
-export const ClassMenu = ({ socketConnection }) => {
+const ClassMenu = ({ socketConnection }) => {
   const [classRoom, setClassRoom] = useState();
   const [selectedClass, setSelectedClass] = useState();
   const [classJoined, setClassJoined] = useState(false);
+  const [error, setError] = useState();
 
   const handleClassSelected = (event) => {
     setSelectedClass(event.target.value);
@@ -39,6 +40,10 @@ export const ClassMenu = ({ socketConnection }) => {
         <Classroom
           socketConnection={socketConnection}
           studentClass={selectedClass}
+          quitClass={() => {
+            setClassJoined(false);
+          }}
+          throwError={setError}
         />
       </IfDiv>
       <IfDiv
@@ -62,6 +67,7 @@ export const ClassMenu = ({ socketConnection }) => {
             id='select-classroom'
             className='select'
             displayEmpty={false}
+            error={error}
           >
             {classRoom?.map((classes) => {
               return (
@@ -71,6 +77,9 @@ export const ClassMenu = ({ socketConnection }) => {
               );
             })}
           </Select>
+          <IfDiv condition={error}>
+            <FormattedMessage id={error} />
+          </IfDiv>
         </FormControl>
         <Button variant='contained' color='primary' onClick={() => joinClass()}>
           <FormattedMessage id='joinClass' />
@@ -79,3 +88,5 @@ export const ClassMenu = ({ socketConnection }) => {
     </div>
   );
 };
+
+export default ClassMenu;

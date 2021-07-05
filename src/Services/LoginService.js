@@ -7,11 +7,13 @@ export const login = (username, password, location, history) => {
       username,
       password,
     })
-
     .then((result) => {
       const { data } = result;
       localStorage.setItem('token', data.access_token);
       const { from } = location.state || { from: { pathname: '/' } };
+      if (from.pathname === '/' || from.pathname === '/login') {
+        from.pathname = '/classes';
+      }
       history.replace(from);
     });
 };
