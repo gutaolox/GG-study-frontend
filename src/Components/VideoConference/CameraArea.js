@@ -10,7 +10,7 @@ import { CaptureCamera } from './CaptureCamera';
 import { ConferenceMenu } from './ConferenceMenu';
 import { USER_ROLES } from '../../Utils/constants.js';
 
-export const CameraArea = ({ user, roomToken }) => {
+const CameraArea = ({ user, roomToken }) => {
   const [participantsControl, setParticipantsControl] = useState([]);
   const [localParticipant, setLocalParticipant] = useState();
   const [muted, setMuted] = useState(true);
@@ -144,3 +144,4 @@ export const CameraArea = ({ user, roomToken }) => {
     </div>
   );
 };
+export default CameraArea;

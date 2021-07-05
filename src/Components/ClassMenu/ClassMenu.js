@@ -9,12 +9,12 @@ import {
   FormControl,
 } from '@material-ui/core';
 import { FormattedMessage } from 'react-intl';
-import { Classroom } from '../Classroom/Classroom';
+import { Classroom } from '../index.js';
 import icone from '../../Images/icone.png';
 
 import './ClassMenu.scss';
 
-export const ClassMenu = ({ socketConnection }) => {
+const ClassMenu = ({ socketConnection }) => {
   const [classRoom, setClassRoom] = useState();
   const [selectedClass, setSelectedClass] = useState();
   const [classJoined, setClassJoined] = useState(false);
@@ -79,3 +79,5 @@ export const ClassMenu = ({ socketConnection }) => {
     </div>
   );
 };
+
+export default ClassMenu;

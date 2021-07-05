@@ -5,15 +5,14 @@ import * as classService from '../../Services/ClassService';
 import { IfDiv } from '../../Shared/IfDiv';
 import { IconButton, Tooltip } from '@material-ui/core';
 import { ArrowBack } from '@material-ui/icons';
-import { Chat } from '../Chat/Chat.js';
-import { CameraArea } from '../VideoConference/CameraArea';
+import { Chat, Participants, CameraArea } from '../index.js';
 
 import logo from '../../Images/logo.png';
 import './Classroom.scss';
 import { PALETTE, USER_ROLES } from '../../Utils/constants';
 import { FormattedMessage } from 'react-intl';
 
-export const Classroom = ({
+const Classroom = ({
   socketConnection,
   idClass = '60dd02372edf90240c54dde6',
 }) => {
@@ -75,7 +74,9 @@ export const Classroom = ({
         <div className='question-container'></div>
       </section>
       <section className='coluna-3'>
-        <div className='group-container'></div>
+        <div className='group-container'>
+          <Participants />
+        </div>
         <div className='chat-container'>
           <Chat
             socketConnection={socketConnection}
@@ -87,3 +88,5 @@ export const Classroom = ({
     </main>
   );
 };
+
+export default Classroom;

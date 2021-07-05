@@ -7,7 +7,7 @@ import './Login.scss';
 
 import icone from '../../Images/icone.png';
 
-export const Login = ({ location, history }) => {
+const Login = ({ location, history }) => {
   return (
     <Formik
       initialValues={{ username: '', password: '' }}
@@ -90,3 +90,4 @@ export const Login = ({ location, history }) => {
     </Formik>
   );
 };
+export default Login;

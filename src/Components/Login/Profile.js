@@ -6,7 +6,7 @@ import * as loginService from '../../Services/LoginService';
 import { Button } from '@material-ui/core';
 import socketIOClient from 'socket.io-client';
 
-export const Profile = () => {
+const Profile = () => {
   const [user, setUser] = useState({});
   const [test, setTest] = useState();
   const [s, setS] = useState({});
@@ -19,18 +19,15 @@ export const Profile = () => {
   };
 
   useEffect(() => {
-    const socket = socketIOClient(
-      `${process.env.REACT_APP_LINK}`,
-      {
-        transportOptions: {
-          polling: {
-            extraHeaders: {
-              Authorization: localStorage.getItem('token'),
-            },
+    const socket = socketIOClient(`${process.env.REACT_APP_LINK}`, {
+      transportOptions: {
+        polling: {
+          extraHeaders: {
+            Authorization: localStorage.getItem('token'),
           },
         },
       },
-    );
+    });
     setS(socket);
     socket.on('connect', () => {
       setTest('teste');
@@ -63,3 +60,5 @@ export const Profile = () => {
     </div>
   );
 };
+
+export default Profile;

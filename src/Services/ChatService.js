@@ -11,8 +11,8 @@ export const listenMessage = (socket, message) => {
   createMessage(socket, message);
 };
 
-export const getMessages = (socket, setCallback) => {
-  socket.emit('findAllMessage');
+export const getMessages = (socket, idClass, setCallback) => {
+  socket.emit('findAllMessage', idClass);
   socket.on('messages', (data) => {
     setCallback(data);
   });

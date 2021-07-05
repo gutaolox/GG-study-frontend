@@ -34,10 +34,37 @@
 }
 
 .Chat-textfield {
-  height: 30px !important;
-  width: auto;
   margin-left: 10px !important;
   flex: 1;
+}
+
+.Chat-textfield > .MuiOutlinedInput-root {
+  border-radius: 20px;
+}
+// design input
+.Chat-textfield > .MuiOutlinedInput-root > .MuiOutlinedInput-notchedOutline {
+  top: -4px !important;
+  border: 2px solid $darkest-green-color;
+}
+
+// input
+.Chat-textfield > .MuiOutlinedInput-root > .MuiOutlinedInput-input {
+  padding: 0px 15px !important;
+  z-index: 1;
+}
+
+.Chat-textfield
+  > .MuiOutlinedInput-root
+  > .MuiOutlinedInput-input::placeholder {
+  color: $lighter-color;
+}
+
+// input-text do chat
+.Chat-textfield > .MuiOutlinedInput-root > .MuiOutlinedInput-notchedOutline,
+.Chat-textfield > .MuiOutlinedInput-root > .MuiOutlinedInput-input {
+  background-color: $green-color;
+  height: 40px;
+  font-family: 'Bebas Neue';
 }
 
 .Chat-input-display > .MuiIconButton-root {
@@ -45,7 +72,7 @@
   margin: 0 10px;
 }
 
-.Chat-input-display > .MuiIconButton-root{
+.Chat-input-display > .MuiIconButton-root {
   width: 40px !important;
   min-width: 40px !important;
   height: 40px !important;
@@ -58,12 +85,12 @@
   box-shadow: inset 0px 4px 4px rgba(0, 0, 0, 0.25);
 }
 
-.Chat-input-display > .MuiIconButton-root:hover{
+.Chat-input-display > .MuiIconButton-root:hover {
   background-color: $green-color;
   box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
 }
 
-.Chat-input-display > .MuiIconButton-root > .MuiIconButton-label > div{
+.Chat-input-display > .MuiIconButton-root > .MuiIconButton-label > div {
   display: flex;
   justify-content: center;
   align-items: center;

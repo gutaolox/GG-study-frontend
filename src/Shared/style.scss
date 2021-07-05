@@ -1,0 +1,19 @@
+@import '../App.scss';
+
+$font-size-area-header: 1em;
+$height-area-container: calc(#{$font-size-area-header} + 4px);
+.area-header-main-container {
+  display: flex;
+  width: 100%;
+  height: $height-area-container;
+  text-transform: uppercase;
+  font-family: 'Bebas Neue';
+  border-bottom: solid 2px $darkest-grey-color;
+  justify-content: center;
+  align-items: center;
+  font-size: $font-size-area-header;
+}
+
+.area-header-children-container {
+  height: calc(100% - #{$height-area-container});
+}
