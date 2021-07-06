@@ -8,15 +8,8 @@ import {
 import './style.scss';
 import { CaptureCamera } from './CaptureCamera';
 import { ConferenceMenu } from './ConferenceMenu';
-import { USER_ROLES } from '../../Utils/constants';
 
-const CameraArea = ({
-  user,
-  roomToken,
-  closeRoom,
-  setCloseRoom,
-  throwError,
-}) => {
+const CameraArea = ({ roomToken, classConnected, closeRoom }) => {
   const [participantsControl, setParticipantsControl] = useState([]);
   const [localParticipant, setLocalParticipant] = useState();
   const [muted, setMuted] = useState(true);
@@ -98,8 +91,8 @@ const CameraArea = ({
           });
         },
         (error) => {
-          throwError('errorCamera');
-          setCloseRoom(true);
+          classConnected.throwError('errorCamera');
+          classConnected.quitClass();
           console.error(`Unable to connect to Room: ${error.message}`);
         },
       );
@@ -107,14 +100,14 @@ const CameraArea = ({
   };
 
   const LocalParticipantComponent = () => {
-    if (user) {
+    if (classConnected.user) {
       return (
         <CaptureCamera
           localAudioTrack={localAudioTrack}
           localVideoTrack={localVideoTrack}
           participant={localParticipant}
-          isStudent={user.role === USER_ROLES.STUDENT}
-          user={user}
+          isStudent={classConnected.isStudent}
+          user={classConnected.user}
           isLocal={true}
           localVideoCheck={hasVideo}
         />
@@ -139,8 +132,8 @@ const CameraArea = ({
             <CaptureCamera
               key={index}
               participant={participant}
-              isStudent={user.role === USER_ROLES.STUDENT}
-              user={user}
+              isStudent={classConnected.isStudent}
+              user={classConnected.user}
               isLocal={false}
             />
           );

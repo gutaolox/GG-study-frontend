@@ -10,26 +10,29 @@ import { PALETTE } from '../../Utils/constants';
 import { AreaHeader } from '../../Shared/AreaHeader.js';
 import './Chat.scss';
 
-const Chat = ({ socketConnection, user, idClass }) => {
+const Chat = ({ socketConnection, classConnected }) => {
   const messagesEndRef = useRef(null);
   const [messages, setMessages] = useState([]);
   const [newOutsideMessage, setNewOutsideMessage] = useState();
   const [newText, setNewText] = useState('');
 
   const getMessages = () => {
-    if (socketConnection && user) {
+    if (socketConnection && classConnected.user) {
       chatService.messageListen(socketConnection, (data) => {
         setNewOutsideMessage(data);
       });
-      chatService.getMessages(socketConnection, idClass, setMessages);
+      chatService.getMessages(
+        socketConnection,
+        classConnected.classId,
+        setMessages,
+      );
     }
   };
   const sendMessage = () => {
     if (!newText) return;
-    console.log('user ', user);
     chatService.listenMessage(socketConnection, {
-      classRoom: idClass,
-      from: user.name,
+      classRoom: classConnected.classId,
+      from: classConnected.user.name,
       text: newText,
       date: new Date(),
     });
@@ -38,7 +41,7 @@ const Chat = ({ socketConnection, user, idClass }) => {
   useEffect(() => {
     messagesEndRef?.current?.scrollToBottom();
   }, [messages]);
-  useEffect(getMessages, [socketConnection, user]);
+  useEffect(getMessages, [socketConnection, classConnected.user]);
   useEffect(() => {
     if (newOutsideMessage) {
       setMessages([...messages, newOutsideMessage]);
@@ -69,7 +72,7 @@ const Chat = ({ socketConnection, user, idClass }) => {
                       <div
                         style={{
                           color: getRandomPastelColor(
-                            user.name === message.from ? (
+                            classConnected.user.name === message.from ? (
                               <FormattedMessage id='you' />
                             ) : (
                               message.from
@@ -77,7 +80,7 @@ const Chat = ({ socketConnection, user, idClass }) => {
                           ),
                         }}
                       >
-                        {user.name === message.from ? (
+                        {classConnected.user.name === message.from ? (
                           <FormattedMessage id='you' />
                         ) : (
                           message.from

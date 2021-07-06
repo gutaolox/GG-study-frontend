@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import * as classService from '../../Services/ClassService';
+import * as loginService from '../../Services/LoginService';
 import { IfDiv } from '../../Shared/IfDiv';
 import {
   Button,
@@ -9,16 +10,28 @@ import {
   FormControl,
 } from '@material-ui/core';
 import { FormattedMessage } from 'react-intl';
+import { USER_ROLES } from '../../Utils/constants';
 import { Classroom } from '../index.js';
 import icone from '../../Images/icone.png';
 
 import './ClassMenu.scss';
 
 const ClassMenu = ({ socketConnection }) => {
-  const [classRoom, setClassRoom] = useState();
+  const [classes, setClasses] = useState();
   const [selectedClass, setSelectedClass] = useState();
   const [classJoined, setClassJoined] = useState(false);
   const [error, setError] = useState();
+  const [user, setUser] = useState();
+
+  const getUser = () => {
+    loginService.profile().then((result) => {
+      const { data } = result;
+      setUser(data);
+      if (data) {
+        setUser(data);
+      }
+    });
+  };
 
   const handleClassSelected = (event) => {
     setSelectedClass(event.target.value);
@@ -27,23 +40,28 @@ const ClassMenu = ({ socketConnection }) => {
     setClassJoined(true);
   };
 
-  const getClassRoom = () => {
+  const getClasses = () => {
     if (socketConnection) {
-      classService.getAllClass(socketConnection, setClassRoom);
+      classService.getAllClass(socketConnection, setClasses);
     }
   };
 
-  useEffect(getClassRoom, [socketConnection]);
+  useEffect(getUser, []);
+  useEffect(getClasses, [socketConnection]);
   return (
     <div className='container-class-menu'>
       <IfDiv condition={classJoined}>
         <Classroom
-          socketConnection={socketConnection}
-          studentClass={selectedClass}
-          quitClass={() => {
-            setClassJoined(false);
+          classConnected={{
+            classId: selectedClass || '60dd02372edf90240c54dde6',
+            user,
+            isStudent: user && user.role === USER_ROLES.STUDENT,
+            throwError: setError,
+            quitClass: () => {
+              setClassJoined(false);
+            },
           }}
-          throwError={setError}
+          socketConnection={socketConnection}
         />
       </IfDiv>
       <IfDiv
@@ -69,10 +87,10 @@ const ClassMenu = ({ socketConnection }) => {
             displayEmpty={false}
             error={error}
           >
-            {classRoom?.map((classes) => {
+            {classes?.map((classroom) => {
               return (
-                <MenuItem key={classes._id} value={classes._id}>
-                  {classes.category}
+                <MenuItem key={classroom._id} value={classroom._id}>
+                  {classroom.category}
                 </MenuItem>
               );
             })}

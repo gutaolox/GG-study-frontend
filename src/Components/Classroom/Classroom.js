@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from 'react';
-import * as loginService from '../../Services/LoginService';
 import * as classService from '../../Services/ClassService';
 import { IfDiv } from '../../Shared/IfDiv';
 import { IconButton, Tooltip } from '@material-ui/core';
@@ -7,58 +6,44 @@ import { ArrowBack } from '@material-ui/icons';
 import { Chat, Participants, CameraArea } from '../index.js';
 import logo from '../../Images/logo.png';
 import './Classroom.scss';
-import { PALETTE, USER_ROLES } from '../../Utils/constants';
+import { PALETTE } from '../../Utils/constants';
 import { FormattedMessage } from 'react-intl';
 
-const Classroom = ({
-  socketConnection,
-  studentClass,
-  quitClass,
-  idClass = '60dd02372edf90240c54dde6',
-  throwError,
-}) => {
+const Classroom = ({ socketConnection, classConnected }) => {
   const [roomToken, setRoomToken] = useState();
-  const [isStudent, setIsStudent] = useState(false);
-  const [user, setUser] = useState();
   const [closeRoom, setCloseRoom] = useState(false);
-  const getUser = () => {
-    loginService.profile().then((result) => {
-      const { data } = result;
-      setUser(data);
-      setIsStudent(data && data.role === USER_ROLES.STUDENT);
-      if (data) {
-        setUser(data);
-      }
-    });
-  };
   const initClass = () => {
-    if (user) {
-      if (user.role === USER_ROLES.PROFESSOR) {
-        throwError('');
+    if (classConnected.user) {
+      if (!classConnected.isStudent) {
+        classConnected.throwError('');
         classService.initClass(
           socketConnection,
           {
-            idClass: idClass,
+            idClass: classConnected.classId,
           },
           setRoomToken,
         );
       } else {
         classService.addStudent(
           socketConnection,
-          idClass,
-          user._id,
+          classConnected.classId,
+          classConnected.user._id,
           setRoomToken,
         );
       }
     }
   };
-  useEffect(getUser, []);
-  useEffect(initClass, [user]);
+
+  useEffect(initClass, [classConnected.user]);
   useEffect(() => {
     if (closeRoom) {
-      quitClass();
-      if (user.role === USER_ROLES.PROFESSOR) {
-        classService.closeRoom(socketConnection, idClass, setCloseRoom);
+      classConnected.quitClass();
+      if (!classConnected.isStudent) {
+        classService.closeRoom(
+          socketConnection,
+          classConnected.classId,
+          setCloseRoom,
+        );
       }
     }
   }, [closeRoom]);
@@ -79,17 +64,27 @@ const Classroom = ({
           </Tooltip>
           <img src={logo} alt='Logo GG Study' title='Logo GG Study'></img>
         </div>
-        <IfDiv condition={isStudent} className='notebook-container'></IfDiv>
-        <IfDiv condition={!isStudent} className='notebook-container'></IfDiv>
-        <IfDiv condition={!isStudent} className='notebook-container'></IfDiv>
+        <IfDiv
+          condition={classConnected.isStudent}
+          className='notebook-container'
+        ></IfDiv>
+        <IfDiv
+          condition={!classConnected.isStudent}
+          className='notebook-container'
+        ></IfDiv>
+        <IfDiv
+          condition={!classConnected.isStudent}
+          className='notebook-container'
+        ></IfDiv>
       </section>
       <section className='coluna-2'>
         <div className='Classroom-camera-container'>
           <CameraArea
-            closeRoom={closeRoom}
-            user={user}
+            classConnected={classConnected}
             roomToken={roomToken}
-            throwError={throwError}
+            closeRoom={() => {
+              setCloseRoom(false);
+            }}
           />
         </div>
         <div className='video-container'></div>
@@ -102,8 +97,7 @@ const Classroom = ({
         <div className='chat-container'>
           <Chat
             socketConnection={socketConnection}
-            user={user}
-            idClass={idClass}
+            classConnected={classConnected}
           ></Chat>
         </div>
       </section>
