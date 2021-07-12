@@ -3,7 +3,7 @@ import * as classService from '../../Services/ClassService';
 import { IfDiv } from '../../Shared/IfDiv';
 import { IconButton, Tooltip } from '@material-ui/core';
 import { ArrowBack } from '@material-ui/icons';
-import { Chat, Participants, CameraArea } from '../index.js';
+import { Chat, Participants, CameraArea, Presentation } from '../index.js';
 import logo from '../../Images/logo.png';
 import './Classroom.scss';
 import { PALETTE } from '../../Utils/constants';
@@ -12,6 +12,8 @@ import { FormattedMessage } from 'react-intl';
 const Classroom = ({ socketConnection, classConnected }) => {
   const [roomToken, setRoomToken] = useState();
   const [closeRoom, setCloseRoom] = useState(false);
+  const [initialPage, setInitialPage] = useState();
+  const [totalPage, setTotalPage] = useState();
   const initClass = () => {
     if (classConnected.user) {
       if (!classConnected.isStudent) {
@@ -22,6 +24,8 @@ const Classroom = ({ socketConnection, classConnected }) => {
             idClass: classConnected.classId,
           },
           setRoomToken,
+          setInitialPage,
+          setTotalPage,
         );
       } else {
         classService.addStudent(
@@ -29,6 +33,8 @@ const Classroom = ({ socketConnection, classConnected }) => {
           classConnected.classId,
           classConnected.user._id,
           setRoomToken,
+          setInitialPage,
+          setTotalPage,
         );
       }
     }
@@ -87,12 +93,19 @@ const Classroom = ({ socketConnection, classConnected }) => {
             }}
           />
         </div>
-        <div className='video-container'></div>
+        <div className='video-container'>
+          <Presentation
+            socketConnection={socketConnection}
+            classConnected={classConnected}
+            initialPage={initialPage}
+            totalPages={totalPage}
+          />
+        </div>
         <div className='question-container'></div>
       </section>
       <section className='coluna-3'>
         <div className='group-container'>
-          <Participants />
+          <Participants classConnected={classConnected} />
         </div>
         <div className='chat-container'>
           <Chat

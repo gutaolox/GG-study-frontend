@@ -13,7 +13,6 @@ const Profile = () => {
     loginService.profile().then((result) => {
       const { data } = result;
       setUser(data);
-      console.log(data);
     });
   };
   useEffect(() => {
@@ -32,7 +31,6 @@ const Profile = () => {
     });
 
     socket.on('teste', (data) => {
-      console.log(data);
       setTest(data);
     });
 

@@ -27,8 +27,6 @@ export const CaptureCamera = ({
   };
   useEffect(() => {
     if (participant) {
-      console.log(`teste Varias vezes o mesmo ${participant.identity}`);
-      console.log(participant.tracks);
       participant.tracks.forEach((publication) => {
         if (
           publication.isSubscribed &&
@@ -41,7 +39,6 @@ export const CaptureCamera = ({
       });
 
       participant.on('trackSubscribed', (track) => {
-        console.log('teste');
         attachTrack(track);
       });
 

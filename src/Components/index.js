@@ -5,3 +5,4 @@ export { default as CameraArea } from './VideoConference/CameraArea.js';
 export { default as Participants } from './Participants/Participants.js';
 export { default as Login } from './Login/Login.js';
 export { default as Profile } from './Login/Profile.js';
+export { default as Presentation } from './Presentation/Presentation.js';
