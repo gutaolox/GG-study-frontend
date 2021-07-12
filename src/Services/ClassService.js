@@ -1,6 +1,13 @@
-export const getAllClass = (socket, classSetter) => {
-  socket.emit('findAllClassRoom');
-  socket.once('getClassRoom', (data) => {
+export const getAllProfessorClasses = (socket, idProfessor, classSetter) => {
+  socket.emit('findAllClassRoomByProfessor', idProfessor);
+  socket.once('getClassRoomByProfessor', (data) => {
+    classSetter(data);
+  });
+};
+
+export const getAllStudentClasses = (socket, idStudent, classSetter) => {
+  socket.emit('findAllClassRoomByStudent', idStudent);
+  socket.once('getClassRoomByStudent', (data) => {
     classSetter(data);
   });
 };

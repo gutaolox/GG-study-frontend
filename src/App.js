@@ -11,7 +11,6 @@ import {
 import { MuiThemeProvider, createMuiTheme } from '@material-ui/core/styles';
 import { CookiesProvider } from 'react-cookie';
 import { PrivateRoute } from './Shared/PrivateRoute';
-import { Profile } from './Components/Login/Profile';
 import { customSocket } from './Utils/customSocket';
 import { ClassMenu, Classroom, Login, Profile } from './Components';
 import { PALETTE } from './Utils/constants';

@@ -18,15 +18,15 @@ import './ClassMenu.scss';
 
 const ClassMenu = ({ socketConnection }) => {
   const [classes, setClasses] = useState();
-  const [selectedClass, setSelectedClass] = useState();
+  const [selectedClass, setSelectedClass] = useState('');
   const [classJoined, setClassJoined] = useState(false);
   const [error, setError] = useState();
   const [user, setUser] = useState();
+  const [categories, setCategories] = useState([]);
 
   const getUser = () => {
     loginService.profile().then((result) => {
       const { data } = result;
-      setUser(data);
       if (data) {
         setUser(data);
       }
@@ -37,23 +37,49 @@ const ClassMenu = ({ socketConnection }) => {
     setSelectedClass(event.target.value);
   };
   const joinClass = () => {
-    setClassJoined(true);
+    if (selectedClass && user) {
+      setClassJoined(true);
+    } else {
+      setError('classOrUserNotFound');
+    }
   };
 
   const getClasses = () => {
-    if (socketConnection) {
-      classService.getAllClass(socketConnection, setClasses);
+    if (socketConnection && user) {
+      if (user.role === USER_ROLES.STUDENT) {
+        classService.getAllStudentClasses(
+          socketConnection,
+          user._id,
+          setClasses,
+        );
+      } else if (user.role === USER_ROLES.PROFESSOR) {
+        classService.getAllProfessorClasses(
+          socketConnection,
+          user._id,
+          setClasses,
+        );
+      }
+    }
+  };
+
+  const getCategories = () => {
+    if (classes && classes.length) {
+      let aux = [];
+      classes.forEach((x) => aux.push(x.category));
+      aux = [...new Set(aux)];
+      setCategories(aux);
     }
   };
 
   useEffect(getUser, []);
-  useEffect(getClasses, [socketConnection]);
+  useEffect(getCategories, [classes]);
+  useEffect(getClasses, [socketConnection, user]);
   return (
     <div className='container-class-menu'>
       <IfDiv condition={classJoined}>
         <Classroom
           classConnected={{
-            classId: selectedClass || '60dd02372edf90240c54dde6',
+            classId: selectedClass,
             user,
             isStudent: user && user.role === USER_ROLES.STUDENT,
             throwError: setError,
@@ -78,23 +104,54 @@ const ClassMenu = ({ socketConnection }) => {
           <InputLabel id='label-select-classroom' className='label-select'>
             <FormattedMessage id='SelectYourClassroom' />
           </InputLabel>
-          <Select
-            value={selectedClass}
-            onChange={handleClassSelected}
-            labelId='label-select-classroom'
-            id='select-classroom'
-            className='select'
-            displayEmpty={false}
-            error={error}
-          >
-            {classes?.map((classroom) => {
-              return (
-                <MenuItem key={classroom._id} value={classroom._id}>
-                  {classroom.category}
-                </MenuItem>
-              );
-            })}
-          </Select>
+          <IfDiv condition={user && user.role === USER_ROLES.STUDENT}>
+            <Select
+              value={selectedClass}
+              onChange={handleClassSelected}
+              labelId='label-select-classroom'
+              id='select-classroom'
+              className='select'
+              displayEmpty={false}
+              error={error}
+            >
+              {classes?.map((classroom) => {
+                return (
+                  <MenuItem key={classroom._id} value={classroom._id}>
+                    {classroom.category}
+                  </MenuItem>
+                );
+              })}
+            </Select>
+          </IfDiv>
+          <IfDiv condition={user && user.role === USER_ROLES.PROFESSOR}>
+            <Select
+              value={selectedClass}
+              onChange={handleClassSelected}
+              labelId='label-select-classroom'
+              id='select-classroom'
+              className='select'
+              displayEmpty={false}
+              error={error}
+              native
+            >
+              {categories?.map((category) => {
+                return (
+                  <optgroup key={category} label={category}>
+                    {classes
+                      .filter((x) => x.category === category)
+                      ?.map((classroom) => {
+                        return (
+                          <option key={classroom._id} value={classroom._id}>
+                            {classroom.group}
+                          </option>
+                        );
+                      })}
+                    ;
+                  </optgroup>
+                );
+              })}
+            </Select>
+          </IfDiv>
           <IfDiv condition={error}>
             <FormattedMessage id={error} />
           </IfDiv>
