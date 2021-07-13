@@ -1,5 +1,6 @@
 import React, { useEffect, useRef, useState } from 'react';
 import * as classService from '../../Services/ClassService';
+import './Presentation.scss';
 
 const Presentation = ({
   socketConnection,
@@ -7,7 +8,7 @@ const Presentation = ({
   initialPage,
   totalPages,
 }) => {
-  const [images, setImages] = useState();
+  const [images, setImages] = useState('');
   const [page, setPage] = useState(initialPage);
   const controlRef = useRef();
   console.log(totalPages, initialPage);
@@ -55,8 +56,12 @@ const Presentation = ({
         }
       }}
       ref={controlRef}
+      className='presentation-container'
     >
-      <img src={`data:image/jpg;base64, ${images}`} />
+      <img
+        src={`data:image/jpg;base64, ${images}`}
+        className='presentation-image'
+      />
     </div>
   );
 };

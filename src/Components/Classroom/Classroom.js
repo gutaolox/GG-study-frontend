@@ -1,19 +1,26 @@
 import React, { useEffect, useState } from 'react';
-import * as classService from '../../Services/ClassService';
-import { IfDiv } from '../../Shared/IfDiv';
 import { IconButton, Tooltip } from '@material-ui/core';
 import { ArrowBack } from '@material-ui/icons';
-import { Chat, Participants, CameraArea, Presentation } from '../index.js';
-import logo from '../../Images/logo.png';
-import './Classroom.scss';
-import { PALETTE } from '../../Utils/constants';
 import { FormattedMessage } from 'react-intl';
+import {
+  Chat,
+  Participants,
+  CameraArea,
+  Presentation,
+  Question,
+} from '../index.js';
+import { IfDiv } from '../../Shared/IfDiv';
+import { PALETTE } from '../../Utils/constants';
+import logo from '../../Images/logo.png';
+import * as classService from '../../Services/ClassService';
+import './Classroom.scss';
 
 const Classroom = ({ socketConnection, classConnected }) => {
   const [roomToken, setRoomToken] = useState();
   const [closeRoom, setCloseRoom] = useState(false);
   const [initialPage, setInitialPage] = useState();
   const [totalPage, setTotalPage] = useState();
+
   const initClass = () => {
     if (classConnected.user) {
       if (!classConnected.isStudent) {
@@ -101,7 +108,12 @@ const Classroom = ({ socketConnection, classConnected }) => {
             totalPages={totalPage}
           />
         </div>
-        <div className='question-container'></div>
+        <div className='question-container'>
+          <Question
+            socketConnection={socketConnection}
+            classConnected={classConnected}
+          ></Question>
+        </div>
       </section>
       <section className='coluna-3'>
         <div className='group-container'>

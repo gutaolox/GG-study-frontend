@@ -20,7 +20,7 @@ const ClassMenu = ({ socketConnection }) => {
   const [classes, setClasses] = useState();
   const [selectedClass, setSelectedClass] = useState('');
   const [classJoined, setClassJoined] = useState(false);
-  const [error, setError] = useState();
+  const [error, setError] = useState('');
   const [user, setUser] = useState();
   const [categories, setCategories] = useState([]);
 
@@ -75,8 +75,8 @@ const ClassMenu = ({ socketConnection }) => {
   useEffect(getCategories, [classes]);
   useEffect(getClasses, [socketConnection, user]);
   return (
-    <div className='container-class-menu'>
-      <IfDiv condition={classJoined}>
+    <div className='classMenu-container'>
+      <IfDiv condition={classJoined} className='classMenu-classroom-container'>
         <Classroom
           classConnected={{
             classId: selectedClass,
@@ -94,71 +94,76 @@ const ClassMenu = ({ socketConnection }) => {
         condition={!classJoined}
         className='container-class-menu-height-organization'
       >
-        <img
-          className='icon-GGStudy'
-          src={icone}
-          alt='Icon GG Study'
-          title='GG Study'
-        />
-        <FormControl>
-          <InputLabel id='label-select-classroom' className='label-select'>
-            <FormattedMessage id='SelectYourClassroom' />
-          </InputLabel>
-          <IfDiv condition={user && user.role === USER_ROLES.STUDENT}>
-            <Select
-              value={selectedClass}
-              onChange={handleClassSelected}
-              labelId='label-select-classroom'
-              id='select-classroom'
-              className='select'
-              displayEmpty={false}
-              error={error}
-            >
-              {classes?.map((classroom) => {
-                return (
-                  <MenuItem key={classroom._id} value={classroom._id}>
-                    {classroom.category}
-                  </MenuItem>
-                );
-              })}
-            </Select>
-          </IfDiv>
-          <IfDiv condition={user && user.role === USER_ROLES.PROFESSOR}>
-            <Select
-              value={selectedClass}
-              onChange={handleClassSelected}
-              labelId='label-select-classroom'
-              id='select-classroom'
-              className='select'
-              displayEmpty={false}
-              error={error}
-              native
-            >
-              {categories?.map((category) => {
-                return (
-                  <optgroup key={category} label={category}>
-                    {classes
-                      .filter((x) => x.category === category)
-                      ?.map((classroom) => {
-                        return (
-                          <option key={classroom._id} value={classroom._id}>
-                            {classroom.group}
-                          </option>
-                        );
-                      })}
-                    ;
-                  </optgroup>
-                );
-              })}
-            </Select>
-          </IfDiv>
-          <IfDiv condition={error}>
-            <FormattedMessage id={error} />
-          </IfDiv>
-        </FormControl>
-        <Button variant='contained' color='primary' onClick={() => joinClass()}>
-          <FormattedMessage id='joinClass' />
-        </Button>
+        <div className='container-class-menu'>
+          <img
+            className='icon-GGStudy'
+            src={icone}
+            alt='Icon GG Study'
+            title='GG Study'
+          />
+          <FormControl>
+            <InputLabel id='label-select-classroom' className='label-select'>
+              <FormattedMessage id='SelectYourClassroom' />
+            </InputLabel>
+            <IfDiv condition={user && user.role === USER_ROLES.STUDENT}>
+              <Select
+                value={selectedClass}
+                onChange={handleClassSelected}
+                labelId='label-select-classroom'
+                id='select-classroom'
+                className='select'
+                error={error}
+              >
+                {classes?.map((classroom) => {
+                  return (
+                    <MenuItem key={classroom._id} value={classroom._id}>
+                      {classroom.category}
+                    </MenuItem>
+                  );
+                })}
+              </Select>
+            </IfDiv>
+            <IfDiv condition={user && user.role === USER_ROLES.PROFESSOR}>
+              <Select
+                value={selectedClass}
+                onChange={handleClassSelected}
+                labelId='label-select-classroom'
+                id='select-classroom'
+                className='select'
+                error={error}
+                native
+              >
+                <option aria-label='None' value='' />
+                {categories?.map((category) => {
+                  return (
+                    <optgroup key={category} label={category}>
+                      {classes
+                        .filter((x) => x.category === category)
+                        ?.map((classroom) => {
+                          return (
+                            <option key={classroom._id} value={classroom._id}>
+                              {classroom.group}
+                            </option>
+                          );
+                        })}
+                      ;
+                    </optgroup>
+                  );
+                })}
+              </Select>
+            </IfDiv>
+            <IfDiv condition={error} className='label-error'>
+              <FormattedMessage id={error} />
+            </IfDiv>
+          </FormControl>
+          <Button
+            variant='contained'
+            color='primary'
+            onClick={() => joinClass()}
+          >
+            <FormattedMessage id='joinClass' />
+          </Button>
+        </div>
       </IfDiv>
     </div>
   );

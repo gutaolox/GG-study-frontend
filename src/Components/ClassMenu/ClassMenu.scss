@@ -1,21 +1,37 @@
 @import '../../App.scss';
 
+.classMenu-container {
+  height: 100vh;
+  width: 100vw;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 0px;
+  margin: 0px;
+}
+
+.container-class-menu-height-organization {
+  display: flex;
+  flex-direction: column;
+  max-height: 60vh;
+  height: 60vh;
+  max-width: 45vw;
+  flex: 1;
+}
 .container-class-menu {
   display: flex;
   flex-direction: column;
   justify-content: space-around;
   align-items: center;
-  flex: 0.5;
-  width: 45%;
+  flex: 1;
   border: 1px solid $green-color;
   border-radius: 5px;
 }
-.container-class-menu-height-organization {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: space-between;
-  flex: 0.3 1;
+
+.classMenu-classroom-container {
+  height: 100vh !important;
+  width: 100vw !important;
+  top: 0 !important;
 }
 
 .icon-GGStudy {
@@ -28,11 +44,11 @@
 }
 
 label#label-select-classroom {
-  top: -15px !important;
+  top: -10px !important;
 }
 
 .select {
-  min-width: 200px;
+  min-width: 250px;
   color: $lighter-color !important;
 }
 
@@ -46,4 +62,9 @@ label#label-select-classroom {
 
 .select .MuiSelect-select:not([multiple]) optgroup {
   color: $darkest-green-color !important;
+}
+
+.label-error {
+  color: $red-color !important;
+  font-size: 14px !important;
 }

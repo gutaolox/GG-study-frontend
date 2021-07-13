@@ -9,6 +9,7 @@
   height: 100vh;
   width: 100vw;
   display: flex;
+  overflow: hidden;
 }
 
 [class^='coluna'] {
@@ -73,11 +74,14 @@ $height-camera-container: 16vh;
   align-items: center;
 }
 
+$height-camera-proportion: calc(9 * #{$vertical-size-column-2} / 16);
 .video-container {
-  height: calc(9 * #{$vertical-size-column-2} / 16);
+  height: $height-camera-proportion;
+  max-height: $height-camera-proportion;
   justify-content: center;
   align-items: center;
   width: auto;
+  overflow: hidden;
 }
 
 .question-container {

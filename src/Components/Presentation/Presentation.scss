@@ -1,0 +1,10 @@
+@import '../Classroom/Classroom.scss';
+
+.presentation-container {
+  width: auto;
+  height: auto;
+}
+
+img.presentation-image {
+  height: $height-camera-proportion !important;
+}
