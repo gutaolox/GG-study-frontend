@@ -1,13 +1,13 @@
 import React, { useEffect, useState, useRef } from 'react';
 import * as questionService from '../../Services/QuestionService';
-import { format } from 'date-fns';
-import { IconButton, TextField, Tooltip } from '@material-ui/core';
+import { IconButton, TextField } from '@material-ui/core';
 import { Send } from '@material-ui/icons';
-import { getRandomPastelColor } from '../../Utils/managingColors';
-import { FormattedMessage, useIntl } from 'react-intl';
+import { useIntl } from 'react-intl';
 import { Scrollbars } from 'react-custom-scrollbars';
 import { PALETTE } from '../../Utils/constants';
 import { AreaHeader } from '../../Shared/AreaHeader.js';
+import { IfDiv } from '../../Shared/IfDiv.js';
+import QuestionMessage from './QuestionMessage.js';
 import '../Chat/Chat.scss';
 
 const Question = ({ socketConnection, classConnected }) => {
@@ -48,7 +48,7 @@ const Question = ({ socketConnection, classConnected }) => {
     }
   }, [newOutsideQuestion]);
   return (
-    <AreaHeader text='question'>
+    <AreaHeader text='questions'>
       <div className='container-chat'>
         <div className='Chat-messages-display'>
           <Scrollbars
@@ -58,43 +58,22 @@ const Question = ({ socketConnection, classConnected }) => {
           >
             {questions
               .sort((a, b) => (a.date < b.date ? -1 : a.date > b.date ? 1 : 0))
-              .map((message, index) => {
+              .map((question, index) => {
                 return (
-                  <Tooltip
-                    title={format(
-                      new Date(message.date),
-                      'dd/MM/yyyy HH:mm:ss',
-                    )}
+                  <QuestionMessage
                     key={index}
-                    placement='left'
-                  >
-                    <div className='message-container'>
-                      <div
-                        style={{
-                          color: getRandomPastelColor(
-                            classConnected.user.name === message.from ? (
-                              <FormattedMessage id='you' />
-                            ) : (
-                              message.from
-                            ),
-                          ),
-                        }}
-                      >
-                        {classConnected.user.name === message.from ? (
-                          <FormattedMessage id='you' />
-                        ) : (
-                          message.from
-                        )}
-                        {':'}&nbsp;
-                      </div>
-                      {message.text}
-                    </div>
-                  </Tooltip>
+                    question={question}
+                    index={index}
+                    isStudent={classConnected.isStudent}
+                  />
                 );
               })}
           </Scrollbars>
         </div>
-        <div className='Chat-input-display'>
+        <IfDiv
+          condition={classConnected.isStudent}
+          className='Chat-input-display'
+        >
           <TextField
             value={newText}
             color='primary'
@@ -110,7 +89,7 @@ const Question = ({ socketConnection, classConnected }) => {
             <Send />
             {/* <FormattedMessage id='send' /> */}
           </IconButton>
-        </div>
+        </IfDiv>
       </div>
     </AreaHeader>
   );

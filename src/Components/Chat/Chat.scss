@@ -13,7 +13,7 @@
   flex-grow: 1;
 }
 .Chat-messages-display > div > div:first-child {
-  margin-bottom: -15px !important;
+  margin-bottom: -17px !important;
 }
 
 .Chat-messages-text-display {
@@ -94,4 +94,21 @@
   display: flex;
   justify-content: center;
   align-items: center;
+}
+
+//QUESTION
+
+.question-icon.MuiIconButton-root {
+  color: $lighter-color;
+  height: 15px;
+  width: 24px;
+  padding: 8px !important;
+  background-color: $green-color;
+  border-radius: 5px;
+}
+
+.question-typography {
+  color: $lighter-color;
+  background-color: $grey-color;
+  padding: 5px;
 }

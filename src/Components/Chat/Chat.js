@@ -17,16 +17,13 @@ const Chat = ({ socketConnection, classConnected }) => {
   const [newText, setNewText] = useState('');
 
   const getMessages = () => {
-    if (socketConnection && classConnected.user) {
-      chatService.messageListen(socketConnection, (data) => {
-        setNewOutsideMessage(data);
-      });
-      chatService.getMessages(
-        socketConnection,
-        classConnected.classId,
-        setMessages,
-      );
-    }
+    if (!socketConnection || !classConnected.user) return;
+    chatService.messageListen(socketConnection, setNewOutsideMessage);
+    chatService.getMessages(
+      socketConnection,
+      classConnected.classId,
+      setMessages,
+    );
   };
   const sendMessage = () => {
     if (!newText) return;

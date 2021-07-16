@@ -14,6 +14,13 @@ export const getAllStudentClasses = (socket, idStudent, classSetter) => {
   });
 };
 
+export const getAllStudentsByClass = (socket, idClass, studentsSetter) => {
+  socket.emit('findAllOnlineStudentsByClass', idClass);
+  socket.once('getAllOnlineStudentsByClass', (data) => {
+    studentsSetter(data);
+  });
+};
+
 export const addStudent = (
   socket,
   idClass,

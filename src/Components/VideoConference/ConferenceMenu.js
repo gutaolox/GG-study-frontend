@@ -24,11 +24,14 @@ export const ConferenceMenu = ({
         <IfDiv condition={muted}>
           <MicOff
             style={{ fontSize: 20 }}
-            color={connected ? '' : 'disabled'}
+            color={connected ? 'inherit' : 'disabled'}
           />
         </IfDiv>
         <IfDiv condition={!muted}>
-          <Mic style={{ fontSize: 20 }} color={connected ? '' : 'disabled'} />
+          <Mic
+            style={{ fontSize: 20 }}
+            color={connected ? 'inherit' : 'disabled'}
+          />
         </IfDiv>
       </IconButton>
       <IconButton
@@ -41,13 +44,13 @@ export const ConferenceMenu = ({
         <IfDiv condition={hasVideo}>
           <Videocam
             style={{ fontSize: 20 }}
-            color={connected ? '' : 'disabled'}
+            color={connected ? 'inherit' : 'disabled'}
           />
         </IfDiv>
         <IfDiv condition={!hasVideo}>
           <VideocamOff
             style={{ fontSize: 20 }}
-            color={connected ? '' : 'disabled'}
+            color={connected ? 'inherit' : 'disabled'}
           />
         </IfDiv>
       </IconButton>

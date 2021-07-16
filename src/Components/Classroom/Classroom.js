@@ -117,7 +117,10 @@ const Classroom = ({ socketConnection, classConnected }) => {
       </section>
       <section className='coluna-3'>
         <div className='group-container'>
-          <Participants classConnected={classConnected} />
+          <Participants
+            socketConnection={socketConnection}
+            classConnected={classConnected}
+          />
         </div>
         <div className='chat-container'>
           <Chat

@@ -91,10 +91,10 @@ export const hexToHSL = (H) => {
 
 const dicNames = {};
 export const getRandomPastelColor = (name) => {
+  const random = Math.floor(Math.random() * 360);
   if (name && !dicNames[name]) {
-    const random = Math.floor(Math.random() * 360);
     dicNames[name] = 'hsl(' + random + ', 100%, 70%)';
   }
 
-  return dicNames[name];
+  return name ? dicNames[name] : 'hsl(' + random + ', 100%, 70%)';
 };

@@ -112,7 +112,7 @@ const ClassMenu = ({ socketConnection }) => {
                 labelId='label-select-classroom'
                 id='select-classroom'
                 className='select'
-                error={error}
+                error={!!error}
               >
                 {classes?.map((classroom) => {
                   return (
@@ -130,7 +130,7 @@ const ClassMenu = ({ socketConnection }) => {
                 labelId='label-select-classroom'
                 id='select-classroom'
                 className='select'
-                error={error}
+                error={!!error}
                 native
               >
                 <option aria-label='None' value='' />

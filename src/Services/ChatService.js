@@ -2,9 +2,11 @@ export const createMessage = (socket, message) => {
   socket.emit('createMessage', message);
 };
 
-export const messageListen = (socket, recieveCallback) => {
+export const messageListen = (socket, newOutsideMessageSetter) => {
   socket.off('message');
-  socket.on('message', recieveCallback);
+  socket.on('message', (data) => {
+    newOutsideMessageSetter(data);
+  });
 };
 
 export const listenMessage = (socket, message) => {

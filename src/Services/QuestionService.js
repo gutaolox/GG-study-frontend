@@ -12,7 +12,7 @@ export const listenQuestion = (socket, question) => {
 };
 
 export const getQuestions = (socket, idClass, setCallback) => {
-  socket.emit('findAllQuestion', idClass);
+  socket.emit('findAllQuestions', idClass);
   socket.on('questions', (data) => {
     setCallback(data);
   });

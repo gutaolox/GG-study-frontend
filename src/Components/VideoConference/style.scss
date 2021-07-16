@@ -26,6 +26,7 @@ $height-CaptureCamera: calc(#{$height-camera-container} - 8px);
   object-fit: fill;
   width: auto;
   height: auto;
+  overflow: hidden;
   max-height: 95%;
   max-width: 95%;
 }
