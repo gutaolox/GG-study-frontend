@@ -17,7 +17,15 @@ export const getAllStudentClasses = (socket, idStudent, classSetter) => {
 export const getAllStudentsByClass = (socket, idClass, studentsSetter) => {
   socket.emit('findAllOnlineStudentsByClass', idClass);
   socket.once('getAllOnlineStudentsByClass', (data) => {
+    console.log('getAllOnlineStudentsByClass', data);
     studentsSetter(data);
+  });
+};
+
+export const studentsListen = (socket, newStudentSetter) => {
+  socket.off('newStudent');
+  socket.on('newStudent', (data) => {
+    newStudentSetter(data);
   });
 };
 

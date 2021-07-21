@@ -62,7 +62,7 @@ const Classroom = ({ socketConnection, classConnected }) => {
   }, [closeRoom]);
   return (
     <main className='container-classroom'>
-      <section className='coluna-1'>
+      <section className='column-1'>
         <div className='menu-container'>
           <Tooltip title={<FormattedMessage id='back' />}>
             <IconButton
@@ -90,7 +90,7 @@ const Classroom = ({ socketConnection, classConnected }) => {
           className='notebook-container'
         ></IfDiv>
       </section>
-      <section className='coluna-2'>
+      <section className='column-2'>
         <div className='Classroom-camera-container'>
           <CameraArea
             classConnected={classConnected}
@@ -115,7 +115,7 @@ const Classroom = ({ socketConnection, classConnected }) => {
           ></Question>
         </div>
       </section>
-      <section className='coluna-3'>
+      <section className='column-3'>
         <div className='group-container'>
           <Participants
             socketConnection={socketConnection}
