@@ -114,13 +114,14 @@ const ClassMenu = ({ socketConnection }) => {
                 className='select'
                 error={!!error}
               >
-                {classes?.map((classroom) => {
+                <MenuItem value='60dd02372edf90240c54dde6'>Teste</MenuItem>
+                {/* {classes?.map((classroom) => {
                   return (
                     <MenuItem key={classroom._id} value={classroom._id}>
                       {classroom.category}
                     </MenuItem>
                   );
-                })}
+                })} */}
               </Select>
             </IfDiv>
             <IfDiv condition={user && user.role === USER_ROLES.PROFESSOR}>

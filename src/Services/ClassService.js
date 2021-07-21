@@ -42,7 +42,6 @@ export const addStudent = (
     idStudent,
   });
   socket.once('connectToken', (data) => {
-    console.log(data);
     tokenSetter(data.videoToken);
     setInitialPage(data.page);
     setTotalPage(data.totalPages);
@@ -88,7 +87,21 @@ export const updatePage = (socket, idClass, page) => {
 
 export const pageListener = (socket, setNewPage) => {
   socket.on('newPage', (data) => {
-    console.log(data);
     setNewPage(data.newPage);
+  });
+};
+
+export const sendPointer = (socket, x, y, xMax, yMax) => {
+  socket.emit('updatePoint', {
+    x,
+    y,
+    xMax,
+    yMax,
+  });
+};
+
+export const listenPointer = (socket, setCoordinates) => {
+  socket.on('newPoint', (data) => {
+    setCoordinates(data);
   });
 };
