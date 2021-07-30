@@ -8,6 +8,7 @@ import {
   CameraArea,
   Presentation,
   Question,
+  Notebook,
 } from '../index.js';
 import { IfDiv } from '../../Shared/IfDiv';
 import { PALETTE } from '../../Utils/constants';
@@ -52,7 +53,13 @@ const Classroom = ({ socketConnection, classConnected }) => {
   useEffect(() => {
     if (closeRoom) {
       classConnected.quitClass();
-      if (!classConnected.isStudent) {
+      if (classConnected.isStudent) {
+        classService.quitRoom(
+          socketConnection,
+          classConnected.classId,
+          classConnected.user._id,
+        );
+      } else {
         classService.closeRoom(
           socketConnection,
           classConnected.classId,
@@ -81,7 +88,12 @@ const Classroom = ({ socketConnection, classConnected }) => {
         <IfDiv
           condition={classConnected.isStudent}
           className='notebook-container'
-        ></IfDiv>
+        >
+          <Notebook
+            socketConnection={socketConnection}
+            classConnected={classConnected}
+          />
+        </IfDiv>
         <IfDiv
           condition={!classConnected.isStudent}
           className='notebook-container'

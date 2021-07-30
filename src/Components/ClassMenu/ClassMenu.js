@@ -64,6 +64,7 @@ const ClassMenu = ({ socketConnection }) => {
 
   const getCategories = () => {
     if (classes && classes.length) {
+      console.log('classes', classes);
       let aux = [];
       classes.forEach((x) => aux.push(x.category));
       aux = [...new Set(aux)];
@@ -109,27 +110,25 @@ const ClassMenu = ({ socketConnection }) => {
               <Select
                 value={selectedClass}
                 onChange={handleClassSelected}
-                labelId='label-select-classroom'
-                id='select-classroom'
+                id='select-classroom-student'
                 className='select'
                 error={!!error}
               >
-                <MenuItem value='60dd02372edf90240c54dde6'>Teste</MenuItem>
-                {/* {classes?.map((classroom) => {
+                {/* <MenuItem value='60dd02372edf90240c54dde6'>Teste</MenuItem> */}
+                {classes?.map((classroom) => {
                   return (
                     <MenuItem key={classroom._id} value={classroom._id}>
                       {classroom.category}
                     </MenuItem>
                   );
-                })} */}
+                })}
               </Select>
             </IfDiv>
             <IfDiv condition={user && user.role === USER_ROLES.PROFESSOR}>
               <Select
                 value={selectedClass}
                 onChange={handleClassSelected}
-                labelId='label-select-classroom'
-                id='select-classroom'
+                id='select-classroom-professor'
                 className='select'
                 error={!!error}
                 native
