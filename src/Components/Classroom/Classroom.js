@@ -14,6 +14,7 @@ import { PALETTE } from '../../Utils/constants';
 import logo from '../../Images/logo.png';
 import * as classService from '../../Services/ClassService';
 import './Classroom.scss';
+import ClassActions from '../ClassActions/ClassActions.js';
 
 const Classroom = ({ socketConnection, classConnected }) => {
   const [roomToken, setRoomToken] = useState();
@@ -84,7 +85,12 @@ const Classroom = ({ socketConnection, classConnected }) => {
         <IfDiv
           condition={!classConnected.isStudent}
           className='notebook-container'
-        ></IfDiv>
+        >
+          <ClassActions
+            socket={socketConnection}
+            classConnected={classConnected}
+          />
+        </IfDiv>
         <IfDiv
           condition={!classConnected.isStudent}
           className='notebook-container'
