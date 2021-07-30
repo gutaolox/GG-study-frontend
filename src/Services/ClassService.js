@@ -10,22 +10,30 @@ export const getAllProfessorClasses = (socket, idProfessor, classSetter) => {
 export const getAllStudentClasses = (socket, idStudent, classSetter) => {
   socket.emit('findAllClassRoomByStudent', idStudent);
   socket.once('getClassRoomByStudent', (data) => {
-    classSetter(data);
+    console.log('data', data);
+    classSetter(data || []);
   });
 };
 
 export const getAllStudentsByClass = (socket, idClass, studentsSetter) => {
   socket.emit('findAllOnlineStudentsByClass', idClass);
   socket.once('getAllOnlineStudentsByClass', (data) => {
-    console.log('getAllOnlineStudentsByClass', data);
-    studentsSetter(data);
+    studentsSetter(data || []);
   });
 };
 
-export const studentsListen = (socket, newStudentSetter) => {
+export const studentsListen = (
+  socket,
+  newStudentSetter,
+  removedStudentSetter,
+) => {
   socket.off('newStudent');
+  socket.off('removedStudent');
   socket.on('newStudent', (data) => {
     newStudentSetter(data);
+  });
+  socket.on('removedStudent', (data) => {
+    removedStudentSetter(data);
   });
 };
 
@@ -45,6 +53,13 @@ export const addStudent = (
     tokenSetter(data.videoToken);
     setInitialPage(data.page);
     setTotalPage(data.totalPages);
+  });
+};
+
+export const quitRoom = (socket, idClass, idStudent) => {
+  socket.emit('quitClass', {
+    idClass,
+    idStudent,
   });
 };
 

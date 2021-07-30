@@ -7,10 +7,15 @@ import './Participants.scss';
 const Participants = ({ socketConnection, classConnected }) => {
   const [students, setStudents] = useState([]);
   const [newStudent, setNewStudent] = useState();
+  const [removedStudent, setRemovedStudent] = useState();
 
   const getStudents = () => {
     if (!classConnected.user || !socketConnection) return;
-    classService.studentsListen(socketConnection, setNewStudent);
+    classService.studentsListen(
+      socketConnection,
+      setNewStudent,
+      setRemovedStudent,
+    );
     classService.getAllStudentsByClass(
       socketConnection,
       classConnected.classId,
@@ -20,12 +25,14 @@ const Participants = ({ socketConnection, classConnected }) => {
 
   useEffect(getStudents, [socketConnection, classConnected.user]);
   useEffect(() => {
-    if (newStudent) {
-      console.log('newStudent', newStudent);
-      console.log('students', students);
-      setStudents([...students, newStudent]);
-    }
+    if (!newStudent) return;
+    setStudents([...students, newStudent]);
   }, [newStudent]);
+
+  useEffect(() => {
+    if (!removedStudent) return;
+    setStudents(students.filter((x) => x.id !== removedStudent.id));
+  }, [removedStudent]);
 
   return (
     <AreaHeader text='participants'>
