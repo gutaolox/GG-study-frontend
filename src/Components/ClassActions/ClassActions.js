@@ -14,7 +14,10 @@ const ClassActions = ({ socket, classConnected }) => {
         </ActionButton>
         <ActionButton
           action={() => {
-            notebookService.releaseExercisesByClass(socket, classConnected._id);
+            notebookService.releaseExercisesByClass(
+              socket,
+              classConnected.classId,
+            );
           }}
         >
           <FormattedMessage id='releaseExercise' />

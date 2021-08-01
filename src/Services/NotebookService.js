@@ -6,12 +6,17 @@ export const getNotificationsByClass = (
   socket.emit('findClassNotification', {
     idClass: idClass,
   });
-  socket.once('notifications', (data) => {
+  socket.on('notifications', (data) => {
     console.log(data);
     setterNotifications(data);
   });
 };
-export const releaseExercisesByClass = (socket, idClass) => {};
+export const releaseExercisesByClass = (socket, idClass) => {
+  socket.emit('releaseExercises', {
+    idClass,
+    orders: ['60ff4f5e15078964708d6cc1'],
+  });
+};
 
 // export const getNotificationsByClass = (
 //   socket,
@@ -35,54 +40,68 @@ export const releaseExercisesByClass = (socket, idClass) => {};
 export const answerNotification = (
   socket,
   classId,
+  userId,
   order,
+  answer,
   setterNotifications,
 ) => {
-  order = order === 5 ? 1 : order;
-  setterNotifications(
-    [
-      {
-        _id: '60ff4f5e15078964708d6cc1',
-        order: 1,
-        options: ['1', '2', '3', '4'],
-        text: 'Pergunta 1: Qual o valor de x++? Sendo x=1',
-        answer: '2',
-        classRoom: '60dd02372edf90240c54dde6',
-        timeReleased: 1627344977484,
-        type: 'question',
-      },
-      {
-        _id: '60ff4f5e15078964708d6c32',
-        order: 2,
-        options: ['1', '2', '3', '4'],
-        text: 'Pergunta 2: Qual o valor de x+=3? Sendo x=1',
-        answer: '4',
-        classRoom: '60dd02372edf90240c54dde6',
-        timeReleased: 1627344977484,
-        type: 'question',
-      },
-      {
-        _id: '60ff4f5e15078964234d6cc1',
-        order: 3,
-        options: ['1', '2', '3', '4'],
-        text: 'Pergunta 3: Qual o valor de x? Sendo x=1',
-        answer: '1',
-        classRoom: '60dd02372edf90240c54dde6',
-        timeReleased: 1627344977484,
-        type: 'question',
-      },
-      {
-        _id: '60ff4f5e15078964234327c1',
-        order: 4,
-        options: ['1', '2', '3', '4'],
-        text: 'Pergunta 4: Qual o valor de x+=1? Sendo x=1',
-        answer: '2',
-        classRoom: '60dd02372edf90240c54dde6',
-        timeReleased: 1627344977484,
-        type: 'question',
-      },
-    ].filter((x) => x.order === order || x.type !== 'question'),
-  );
+  console.log('order', order);
+  socket.emit('nextExercises', {
+    idClass: classId,
+    nextOrder: order + 1,
+    studentId: userId,
+    answer: answer,
+  });
+
+  socket.once('showExercise', (data) => {
+    setterNotifications(data);
+  });
+
+  // order = order === 5 ? 1 : order;
+  // setterNotifications(
+  //   [
+  //     {
+  //       _id: '60ff4f5e15078964708d6cc1',
+  //       order: 1,
+  //       options: ['1', '2', '3', '4'],
+  //       text: 'Pergunta 1: Qual o valor de x++? Sendo x=1',
+  //       answer: '2',
+  //       classRoom: '60dd02372edf90240c54dde6',
+  //       timeReleased: 1627344977484,
+  //       type: 'question',
+  //     },
+  //     {
+  //       _id: '60ff4f5e15078964708d6c32',
+  //       order: 2,
+  //       options: ['1', '2', '3', '4'],
+  //       text: 'Pergunta 2: Qual o valor de x+=3? Sendo x=1',
+  //       answer: '4',
+  //       classRoom: '60dd02372edf90240c54dde6',
+  //       timeReleased: 1627344977484,
+  //       type: 'question',
+  //     },
+  //     {
+  //       _id: '60ff4f5e15078964234d6cc1',
+  //       order: 3,
+  //       options: ['1', '2', '3', '4'],
+  //       text: 'Pergunta 3: Qual o valor de x? Sendo x=1',
+  //       answer: '1',
+  //       classRoom: '60dd02372edf90240c54dde6',
+  //       timeReleased: 1627344977484,
+  //       type: 'question',
+  //     },
+  //     {
+  //       _id: '60ff4f5e15078964234327c1',
+  //       order: 4,
+  //       options: ['1', '2', '3', '4'],
+  //       text: 'Pergunta 4: Qual o valor de x+=1? Sendo x=1',
+  //       answer: '2',
+  //       classRoom: '60dd02372edf90240c54dde6',
+  //       timeReleased: 1627344977484,
+  //       type: 'question',
+  //     },
+  //   ].filter((x) => x.order === order || x.type !== 'question'),
+  // );
 };
 
 export const getQuestionMetricsByClass = (

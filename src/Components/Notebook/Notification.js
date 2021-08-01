@@ -17,7 +17,9 @@ export const Notification = ({
       notebookService.answerNotification(
         socketConnection,
         classConnected.classId,
-        notification.order + 1,
+        classConnected.user._id,
+        notification.order,
+        option,
         setterNotification,
       );
     }
