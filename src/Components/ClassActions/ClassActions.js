@@ -11,7 +11,7 @@ const ClassActions = ({ socket, classConnected }) => {
         <ActionButton action={() => console.log('click Button 1')}>
           <FormattedMessage id='blockPointer' />
         </ActionButton>
-        <ActionButton action={() => console.log('click Button 1')}>
+        <ActionButton action={() => console.log('TODO')}>
           <FormattedMessage id='releaseExercise' />
         </ActionButton>
       </div>

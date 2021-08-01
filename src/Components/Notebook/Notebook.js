@@ -15,7 +15,11 @@ const Notebook = ({ socketConnection, classConnected }) => {
   }, [notifications]);
 
   useEffect(() => {
-    notebookService.getNotificationsByClass(setNotifications);
+    notebookService.getNotificationsByClass(
+      socketConnection,
+      classConnected.classId,
+      setNotifications,
+    );
   }, []);
 
   return (
