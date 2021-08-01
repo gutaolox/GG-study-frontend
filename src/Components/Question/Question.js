@@ -87,7 +87,6 @@ const Question = ({ socketConnection, classConnected }) => {
           />
           <IconButton onClick={sendQuestion} style={{ color: PALETTE.LIGHTER }}>
             <Send />
-            {/* <FormattedMessage id='send' /> */}
           </IconButton>
         </IfDiv>
       </div>

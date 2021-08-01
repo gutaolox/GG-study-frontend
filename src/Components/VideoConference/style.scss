@@ -54,10 +54,10 @@ $height-CaptureCamera: calc(#{$height-camera-container} - 8px);
 }
 
 .ConferenceMenu-menu-organization > .MuiIconButton-root {
-  width: 40px !important;
-  min-width: 40px !important;
-  height: 40px !important;
-  min-height: 40px !important;
+  width: 2em !important;
+  min-width: 2em !important;
+  height: 2em !important;
+  min-height: 2em !important;
   padding: 4px !important;
   font-size: inherit;
   background-color: $lighter-green-color;

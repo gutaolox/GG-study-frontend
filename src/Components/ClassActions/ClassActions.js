@@ -2,6 +2,7 @@ import React from 'react';
 import { FormattedMessage } from 'react-intl';
 import { AreaHeader } from '../../Shared/AreaHeader';
 import ActionButton from './ActionButton';
+import * as notebookService from '../../Services/NotebookService.js';
 import './ClassActions.scss';
 
 const ClassActions = ({ socket, classConnected }) => {
@@ -11,7 +12,11 @@ const ClassActions = ({ socket, classConnected }) => {
         <ActionButton action={() => console.log('click Button 1')}>
           <FormattedMessage id='blockPointer' />
         </ActionButton>
-        <ActionButton action={() => console.log('TODO')}>
+        <ActionButton
+          action={() => {
+            notebookService.releaseExercisesByClass(socket, classConnected._id);
+          }}
+        >
           <FormattedMessage id='releaseExercise' />
         </ActionButton>
       </div>

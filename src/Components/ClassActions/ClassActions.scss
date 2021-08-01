@@ -1,24 +1,30 @@
+@import '../../App.scss';
+
 .ClassAction-button-organization {
   display: flex;
   flex-direction: row;
   flex-wrap: wrap;
-  justify-content: space-between;
+  justify-content: flex-start;
   align-items: flex-start;
-  align-content: flex-start;
   height: 100%;
+  padding: 5px;
 }
 
 .ActionButton-button {
-  background: #2b9a9e;
-  border: 1px solid #151924;
+  background: $green-color;
+  border: 1px solid $darkest-grey-color;
+  border-radius: 10px;
   box-sizing: border-box;
   box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
-  width: 45%;
-  margin-left: 1.25%;
-  margin-right: 1.25%;
-  margin-top: 10px;
-  height: 20%;
+  width: calc(50% - 10px);
+  margin: 5px;
+  min-height: 40px;
   justify-content: center;
   align-items: center;
   display: flex;
+}
+
+.ActionButton-button > button > .MuiButton-label {
+  color: $lighter-color !important;
+  font-size: 1em;
 }

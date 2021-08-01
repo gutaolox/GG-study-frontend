@@ -10,8 +10,7 @@ const Notebook = ({ socketConnection, classConnected }) => {
   const [notifications, setNotifications] = useState([]);
 
   useEffect(() => {
-    console.log('notifications', notifications);
-    notificationsEndRef?.current?.scrollToBottom();
+    notificationsEndRef?.current?.scrollToTop();
   }, [notifications]);
 
   useEffect(() => {
@@ -26,20 +25,24 @@ const Notebook = ({ socketConnection, classConnected }) => {
     <AreaHeader text='notebook'>
       <div className='Notebook-notifications-display'>
         <Scrollbars
-          style={{ width: '100%', height: '300%' }}
+          style={{ width: '100%', height: 'calc(100% - 12px)' }}
           autoHideTimeout={1000}
           ref={notificationsEndRef}
         >
           {notifications
-            // .sort((a, b) =>
-            //   a.timeReleased < b.timeReleased
-            //     ? -1
-            //     : a.timeReleased > b.timeReleased
-            //     ? 1
-            //     : 0,
-            // )
-            .map((notification, index) => (
-              <Notification key={index} notification={notification} />
+            .sort((a, b) =>
+              a.timeReleased
+                .toString()
+                .localeCompare(b.timeReleased.toString()),
+            )
+            .map((notification) => (
+              <Notification
+                key={notification._id}
+                notification={notification}
+                socketConnection={socketConnection}
+                classConnected={classConnected}
+                setterNotification={setNotifications}
+              />
             ))}
         </Scrollbars>
       </div>

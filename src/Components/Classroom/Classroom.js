@@ -16,6 +16,7 @@ import logo from '../../Images/logo.png';
 import * as classService from '../../Services/ClassService';
 import './Classroom.scss';
 import ClassActions from '../ClassActions/ClassActions.js';
+import Metrics from '../Metrics/Metrics.js';
 
 const Classroom = ({ socketConnection, classConnected }) => {
   const [roomToken, setRoomToken] = useState();
@@ -105,8 +106,13 @@ const Classroom = ({ socketConnection, classConnected }) => {
         </IfDiv>
         <IfDiv
           condition={!classConnected.isStudent}
-          className='notebook-container'
-        ></IfDiv>
+          className='metrics-container'
+        >
+          <Metrics
+            socketConnection={socketConnection}
+            classConnected={classConnected}
+          />
+        </IfDiv>
       </section>
       <section className='column-2'>
         <div className='Classroom-camera-container'>

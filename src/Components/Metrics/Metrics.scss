@@ -1,0 +1,23 @@
+@import '../../App.scss';
+
+.MuiPaper-root {
+  color: $green-color !important;
+  background-color: $grey-color !important;
+}
+
+.MuiButtonBase-root.MuiAccordionSummary-root {
+  min-height: 2em !important;
+  height: 2em !important;
+}
+
+.MuiTableCell-root {
+  padding: 3px !important;
+  border-bottom: 1px solid $darkest-grey-color !important;
+}
+
+.MuiTableCell-head {
+  color: $lighter-green-color !important;
+}
+.MuiTableCell-body {
+  color: $lighter-color !important;
+}

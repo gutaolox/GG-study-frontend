@@ -66,7 +66,7 @@ const Chat = ({ socketConnection, classConnected }) => {
                     placement='left'
                   >
                     <div className='message-container'>
-                      <div
+                      <span
                         style={{
                           color: getRandomPastelColor(
                             classConnected.user.name === message.from ? (
@@ -83,7 +83,7 @@ const Chat = ({ socketConnection, classConnected }) => {
                           message.from
                         )}
                         {':'}&nbsp;
-                      </div>
+                      </span>
                       {message.text}
                     </div>
                   </Tooltip>

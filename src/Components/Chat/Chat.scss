@@ -20,7 +20,6 @@
   vertical-align: center;
 }
 .message-container {
-  display: flex;
   flex-wrap: wrap;
 }
 
@@ -64,7 +63,7 @@
 .Chat-textfield > .MuiOutlinedInput-root > .MuiOutlinedInput-input {
   background-color: $green-color;
   height: 40px;
-  font-family: 'Bebas Neue';
+  font-family: 'Source Serif Pro';
 }
 
 .Chat-input-display > .MuiIconButton-root {

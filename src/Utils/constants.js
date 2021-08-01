@@ -7,6 +7,7 @@ export const PALETTE = {
   DARKEST_GREY: '#151924',
   GREY: '#393d46',
   DARKEST_GREEN: '#094f52',
+  DARK_GREEN: '#177E82',
   GREEN: '#2b9a9e',
   LIGHTER_GREEN: '#3fb8bd',
   LIGHTER: '#e1e4eb',

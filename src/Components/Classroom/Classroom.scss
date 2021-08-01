@@ -20,15 +20,15 @@
 }
 
 .column-1 {
-  width: 20vw;
-  max-width: 20vw;
+  width: 23vw;
+  max-width: 23vw;
   height: 100vh;
   max-height: 100vh;
 }
 
 .menu-container {
   display: flex;
-  height: 60px;
+  height: 3em;
   background-color: $darkest-green-color;
   border: 2px solid $darkest-grey-color;
   justify-content: space-between;
@@ -54,6 +54,17 @@
   align-items: flex-start;
   flex-grow: 1;
 }
+
+.metrics-container {
+  width: auto;
+  background-color: $grey-color;
+  border: 2px solid $darkest-grey-color;
+  border-top-width: 0px;
+  justify-content: center;
+  align-items: flex-start;
+  height: 55%;
+}
+
 $vertical-size-column-2: 55vw;
 .column-2 {
   width: $vertical-size-column-2;
@@ -63,7 +74,7 @@ $vertical-size-column-2: 55vw;
   flex-shrink: 0;
 }
 
-$height-camera-container: 16vh;
+$height-camera-container: 15vh;
 .Classroom-camera-container {
   //flex-grow: 0.5;
   height: $height-camera-container;
@@ -98,8 +109,8 @@ $height-camera-proportion: calc(9 * #{$vertical-size-column-2} / 16);
 }
 
 .column-3 {
-  width: 25vw;
-  max-width: 25vw;
+  width: 22vw;
+  max-width: 22vw;
   height: 100vh;
   max-height: 100vh;
   flex-shrink: 3;
