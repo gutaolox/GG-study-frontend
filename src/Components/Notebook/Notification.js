@@ -9,6 +9,7 @@ export const Notification = ({
   socketConnection,
   classConnected,
   setterNotification,
+  nextQuestion,
 }) => {
   const { text, options } = notification;
 
@@ -22,6 +23,7 @@ export const Notification = ({
         option,
         setterNotification,
       );
+      nextQuestion();
     }
   };
 

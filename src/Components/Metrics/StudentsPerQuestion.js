@@ -18,7 +18,6 @@ import { FormattedMessage } from 'react-intl';
 
 const StudentsPerQuestion = ({ row }) => {
   const [open, setOpen] = React.useState(false);
-
   return (
     <React.Fragment>
       <TableRow>

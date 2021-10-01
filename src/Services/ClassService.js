@@ -10,7 +10,6 @@ export const getAllProfessorClasses = (socket, idProfessor, classSetter) => {
 export const getAllStudentClasses = (socket, idStudent, classSetter) => {
   socket.emit('findAllClassRoomByStudent', idStudent);
   socket.once('getClassRoomByStudent', (data) => {
-    console.log('data', data);
     classSetter(data || []);
   });
 };
@@ -94,6 +93,7 @@ export const getSlide = (classId, page) => {
 };
 
 export const updatePage = (socket, idClass, page) => {
+  console.log(page);
   socket.emit('updatePage', {
     idClass,
     newPage: page,
@@ -102,6 +102,7 @@ export const updatePage = (socket, idClass, page) => {
 
 export const pageListener = (socket, setNewPage) => {
   socket.on('newPage', (data) => {
+    console.log(data);
     setNewPage(data.newPage);
   });
 };

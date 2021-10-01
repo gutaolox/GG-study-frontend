@@ -64,7 +64,6 @@ const ClassMenu = ({ socketConnection }) => {
 
   const getCategories = () => {
     if (classes && classes.length) {
-      console.log('classes', classes);
       let aux = [];
       classes.forEach((x) => aux.push(x.category));
       aux = [...new Set(aux)];

@@ -93,6 +93,7 @@ const Classroom = ({ socketConnection, classConnected }) => {
           <Notebook
             socketConnection={socketConnection}
             classConnected={classConnected}
+            roomToken={roomToken}
           />
         </IfDiv>
         <IfDiv

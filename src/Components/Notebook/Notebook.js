@@ -5,22 +5,25 @@ import { AreaHeader } from '../../Shared/AreaHeader.js';
 import { Notification } from './Notification.js';
 import './Notebook.scss';
 
-const Notebook = ({ socketConnection, classConnected }) => {
+const Notebook = ({ socketConnection, classConnected, roomToken }) => {
   const notificationsEndRef = useRef(null);
   const [notifications, setNotifications] = useState([]);
-
+  const [questionControl, setQuestionControl] = useState(0);
   useEffect(() => {
     notificationsEndRef?.current?.scrollToTop();
   }, [notifications]);
 
   useEffect(() => {
-    notebookService.getNotificationsByClass(
-      socketConnection,
-      classConnected.classId,
-      setNotifications,
-    );
-  }, []);
-
+    if (roomToken) {
+      notebookService.getNotificationsByClass(
+        socketConnection,
+        classConnected.classId,
+        classConnected.user._id,
+        setNotifications,
+        setQuestionControl,
+      );
+    }
+  }, [roomToken]);
   return (
     <AreaHeader text='notebook'>
       <div className='Notebook-notifications-display'>
@@ -29,21 +32,20 @@ const Notebook = ({ socketConnection, classConnected }) => {
           autoHideTimeout={1000}
           ref={notificationsEndRef}
         >
-          {notifications
-            .sort((a, b) =>
-              a.timeReleased
-                .toString()
-                .localeCompare(b.timeReleased.toString()),
-            )
-            .map((notification) => (
-              <Notification
-                key={notification._id}
-                notification={notification}
-                socketConnection={socketConnection}
-                classConnected={classConnected}
-                setterNotification={setNotifications}
-              />
-            ))}
+          {notifications?.length && (
+            <Notification
+              key={notifications[questionControl]._id}
+              notification={notifications[questionControl]}
+              socketConnection={socketConnection}
+              classConnected={classConnected}
+              setterNotification={setNotifications}
+              nextQuestion={() => {
+                if (questionControl !== notifications.length - 1) {
+                  setQuestionControl(questionControl + 1);
+                }
+              }}
+            />
+          )}
         </Scrollbars>
       </div>
     </AreaHeader>

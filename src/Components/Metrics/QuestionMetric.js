@@ -22,15 +22,17 @@ const QuestionMetric = ({ socketConnection, classConnected }) => {
   const [loadingExercises, setLoadingExercises] = useState(false);
 
   const loadExercises = () => {
-    setLoadingExercises(true);
-    notebookService.getQuestionMetricsByClass(
-      socketConnection,
-      classConnected.classId,
-      setExercises,
-      setLoadingExercises,
-    );
+    if (socketConnection) {
+      setLoadingExercises(true);
+      notebookService.getQuestionMetricsByClass(
+        socketConnection,
+        classConnected.classId,
+        setExercises,
+        setLoadingExercises,
+      );
+    }
   };
-  useEffect(loadExercises, []);
+  useEffect(loadExercises, [socketConnection]);
   return (
     <TableContainer component={Paper}>
       <Table>
