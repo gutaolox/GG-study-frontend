@@ -10,7 +10,7 @@ import {
 } from 'react-router-dom';
 import { MuiThemeProvider, createMuiTheme } from '@material-ui/core/styles';
 import { CookiesProvider } from 'react-cookie';
-import { PrivateRoute } from './Shared/PrivateRoute';
+import { PrivateRoute } from './Routes/PrivateRoute';
 import { customSocket } from './Utils/customSocket';
 import { ClassMenu, Classroom, Login, Profile } from './Components';
 import { PALETTE } from './Utils/constants';
