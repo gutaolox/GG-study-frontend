@@ -27,7 +27,6 @@ const Login = ({ location, history }) => {
         await loginService
           .login(values.username, values.password, location, history)
           .catch((error) => {
-            console.log(error);
             setSubmitting(false);
           });
       }}

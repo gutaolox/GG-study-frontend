@@ -32,7 +32,7 @@ const Notebook = ({ socketConnection, classConnected, roomToken }) => {
           autoHideTimeout={1000}
           ref={notificationsEndRef}
         >
-          {notifications?.length && (
+          {notifications?.length ? (
             <Notification
               key={notifications[questionControl]._id}
               notification={notifications[questionControl]}
@@ -45,7 +45,7 @@ const Notebook = ({ socketConnection, classConnected, roomToken }) => {
                 }
               }}
             />
-          )}
+          ) : null}
         </Scrollbars>
       </div>
     </AreaHeader>

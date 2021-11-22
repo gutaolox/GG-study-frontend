@@ -58,10 +58,8 @@ const Presentation = ({
         const referenceNumber = controlRef.current.offsetWidth / 2;
         const coordinates = getEventCoordinates(event);
         if (coordinates.x >= referenceNumber) {
-          console.log('add', totalPages);
           setPage((page % totalPages) + 1);
         } else {
-          console.log('remove', page);
           setPage(Math.abs((page % totalPages) - 1));
         }
       }}

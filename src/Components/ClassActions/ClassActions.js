@@ -9,7 +9,7 @@ const ClassActions = ({ socket, classConnected }) => {
   return (
     <AreaHeader text='classActions'>
       <div className='ClassAction-button-organization'>
-        <ActionButton action={() => console.log('click Button 1')}>
+        <ActionButton action={() => {}}>
           <FormattedMessage id='blockPointer' />
         </ActionButton>
         <ActionButton

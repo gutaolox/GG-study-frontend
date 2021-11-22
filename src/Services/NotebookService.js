@@ -10,7 +10,6 @@ export const getNotificationsByClass = (
     studentId: userId,
   });
   socket.on('notifications', (data) => {
-    console.log(data);
     setterNotifications(data.notifications);
     setIndex(data.lastOrder - 1);
   });
@@ -48,7 +47,6 @@ export const getQuestionMetricsByClass = (
     idClass: classId,
   });
   socket.on('metricsAnswer', (data) => {
-    console.log(data.metrics.participants);
     setterMetrics(data.metrics);
     setterLoading(false);
   });
